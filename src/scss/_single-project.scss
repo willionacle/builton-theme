@@ -16,8 +16,9 @@ $project-rule: #1a1a1a;
 
 .single-project {
   width: 100%;
-  background: $project-panel-bg;
+  background: #f9f8f4;
 }
+
 
 // Parallax hero (reuses data-wwd-parallax JS)
 .project-parallax {
@@ -27,14 +28,27 @@ $project-rule: #1a1a1a;
   max-width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  height: clamp(14rem, 42vh, 28rem);
+   height: 69vh;
   overflow: hidden;
   background: #c9c9cd;
 }
 
+@media (max-width: 1066px) {
+  .project-parallax__inner{
+    height: fit-content;
+  }
+  .project-parallax {
+    height: clamp(14rem, 60vw, 26rem);
+  }
+}
+
+.single-project .project-parallax{
+  background: #f9f8f4;
+}
+
 .project-parallax__inner {
-  position: absolute;
-  inset: -12% 0;
+  // position: absolute;
+  // inset: -12% 0;
   height: 124%;
   will-change: transform;
 }

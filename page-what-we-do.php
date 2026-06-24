@@ -15,16 +15,25 @@ $post            = $context['post'];
 $post_id         = $post ? (int) ( $post->ID ?? $post->id ) : 0;
 
 /**
+ * All ACF fields for this page, fully resolved by ACF itself (correctly
+ * handles the Section 2/3 clone fields' nesting and return formats — the
+ * same resolution path ACF uses to populate the wp-admin edit screen).
+ *
+ * @var array<string, mixed>
+ */
+$wwd_all_fields = ( function_exists( 'get_fields' ) && $post_id > 0 ) ? get_fields( $post_id ) : [];
+if ( ! is_array( $wwd_all_fields ) ) {
+	$wwd_all_fields = [];
+}
+
+/**
  * Get ACF field for this page or empty array.
  *
  * @param string $field_name Field name.
  * @return mixed
  */
-$wwd_field = static function ( $field_name ) use ( $post_id ) {
-	if ( ! function_exists( 'get_field' ) || $post_id <= 0 ) {
-		return [];
-	}
-	$value = get_field( $field_name, $post_id );
+$wwd_field = static function ( $field_name ) use ( $wwd_all_fields ) {
+	$value = $wwd_all_fields[ $field_name ] ?? null;
 	// ACF often returns false (not null) when a group has never been saved.
 	if ( null === $value || false === $value ) {
 		return [];
@@ -33,47 +42,22 @@ $wwd_field = static function ( $field_name ) use ( $post_id ) {
 };
 
 /**
- * Load a section group, with fallback for legacy seamless clone prefixed meta keys.
+ * Load a section group (section_1, section_2, …).
  *
- * @param string $field_name Section field name (section_1, section_2, …).
+ * @param string $field_name Section field name.
  * @return array<string, mixed>
  */
-$wwd_get_section_field = static function ( $field_name ) use ( $post_id, $wwd_field ) {
+$wwd_get_section_field = static function ( $field_name ) use ( $wwd_field ) {
 	$raw = $wwd_field( $field_name );
 	if ( ! is_array( $raw ) ) {
-		$raw = [];
+		return [];
 	}
-
-	$sub_names = [
-		'image_side',
-		'panel_style',
-		'parallax_image',
-		'parallax_alt',
-		'main_title',
-		'main_subtitle',
-		'feature_subhead',
-		'feature_body',
-		'feature_image',
-		'feature_image_alt',
-		'bottom_left_subhead',
-		'bottom_left_body',
-		'bottom_right_subhead',
-		'bottom_right_body',
-	];
-
-	foreach ( $sub_names as $sub_name ) {
-		if ( isset( $raw[ $sub_name ] ) && null !== $raw[ $sub_name ] && false !== $raw[ $sub_name ] ) {
-			continue;
-		}
-		if ( ! function_exists( 'get_field' ) || $post_id <= 0 ) {
-			continue;
-		}
-		$prefixed = get_field( $field_name . '_' . $sub_name, $post_id );
-		if ( null !== $prefixed && false !== $prefixed ) {
-			$raw[ $sub_name ] = $prefixed;
-		}
+	// Section 2/3 clone the whole "section_1" group field (not its individual
+	// sub-fields), so ACF nests their data one level deeper, under the cloned
+	// field's own name, e.g. $raw === [ 'section_1' => [ 'main_title' => ... ] ].
+	if ( 1 === count( $raw ) && isset( $raw['section_1'] ) && is_array( $raw['section_1'] ) ) {
+		return $raw['section_1'];
 	}
-
 	return $raw;
 };
 

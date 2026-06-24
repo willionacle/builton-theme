@@ -7,12 +7,12 @@
 {% set tag = tag|default('section') %}
 {% set regular_weight = regular_weight|default(false) %}
 {% set modifier = modifier|default('') %}
+{% if content|default('') %}
 <{{ tag }} class="text-block{{ regular_weight ? ' text-block--regular' : '' }}{{ modifier ? ' text-block--' ~ modifier : '' }}">
   <div class="text-block__inner">
-    {% if content|default('') %}
-      <div class="text-block__content">
-        {{ content|raw }}
-      </div>
-    {% endif %}
+    <div class="text-block__content">
+      {{ content|raw }}
+    </div>
   </div>
 </{{ tag }}>
+{% endif %}

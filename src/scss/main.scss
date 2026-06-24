@@ -197,10 +197,81 @@ a {
   }
 
   a {
+    position: relative;
     text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: currentColor;
+      transition: width 0.25s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+
+    &[aria-current="page"] {
+      font-weight: 700;
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Projects page only: second header row listing each project, scroll-spy underline on the active one
+.site-header__subnav {
+  width: 100%;
+  margin-top: $spacing * 0.5;
+  padding: 0 $spacing;
+}
+
+.site-header__subnav-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: $spacing;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-header__subnav-link {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  font-size: $text-sm;
+  font-weight: 500;
+  white-space: nowrap;
+  color: inherit;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.3em;
+    width: 0;
+    height: 2px;
+    background-color: currentColor;
+    transition: width 0.25s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+
+  &.is-active {
+    font-weight: 700;
+
+    &::after {
+      width: 100%;
     }
   }
 }
@@ -266,13 +337,33 @@ a {
   text-align: center;
 
   a {
-    display: block;
+    position: relative;
+    display: inline-block;
     text-decoration: none;
     font-size: $text-xl;
     font-weight: 500;
 
-    &:hover {
-      text-decoration: underline;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -0.25em;
+      width: 0;
+      height: 2px;
+      background-color: currentColor;
+      transition: width 0.25s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+
+    &[aria-current="page"] {
+      font-weight: 700;
+
+      &::after {
+        width: 100%;
+      }
     }
   }
 }
@@ -299,6 +390,28 @@ a {
   .site-header__logo {
     flex: 0 0 auto;
   }
+
+  // Projects page sub-nav: becomes a horizontally swipeable strip (main nav is a hamburger
+  // overlay here, so the sub-nav cannot rely on flex-wrap like the desktop layout)
+  .site-header__subnav-list {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: $spacing * 0.75;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .site-header__subnav-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
 }
 
 @media (min-width: $breakpoint-tablet) {
@@ -314,6 +427,12 @@ a {
 
 .site:has(.hero) .site-main {
   padding-top: 0;
+}
+
+// Projects page: header gains a second row (.site-header__subnav) only here, so the static
+// 4.5rem top padding above is too short -- push content down by the taller two-row header instead.
+.site-main.page-project {
+  padding-top: 7.5rem;
 }
 
 // Footer
@@ -1140,6 +1259,9 @@ body:has(.hero) .site-header--overlay {
 }
 
 @media (max-width: $breakpoint-tablet - 1) {
+  .headline-reveal--what-we-do-hero {
+    padding: 0;
+  }
   .tandem-hub__lead > p:first-child{
     padding: 50px 0px 0;
   }

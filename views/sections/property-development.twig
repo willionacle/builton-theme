@@ -10,7 +10,8 @@
 {% set heading_id = heading_id|default('property-development-heading') %}
 {% set image_side = image_side|default('right') %} {# right (default) or left #}
 {% set panel_style = panel_style|default('muted') %} {# muted (default) or transparent #}
-{% set root_class = 'section-property-development' ~ (panel_style == 'transparent' ? ' section-property-development--transparent' : '') ~ (image_side == 'left' ? ' section-property-development--image-left' : '') %}
+{% set media_layout = media_layout|default('stacked') %} {# stacked (default): image + bottom row share the media column. grid: image fills its own column; feature + bottom blocks flow together beside it #}
+{% set root_class = 'section-property-development' ~ (panel_style == 'transparent' ? ' section-property-development--transparent' : '') ~ (image_side == 'left' ? ' section-property-development--image-left' : '') ~ (media_layout == 'grid' ? ' section-property-development--media-grid' : '') %}
 {% if has_parallax or has_panel %}
 <div class="{{ root_class }}">
   {% if has_parallax %}
@@ -72,7 +73,7 @@
               {% endif %}
 
               <div class="section-property-development__bottom">
-                <div class="section-property-development__bottom-col">
+                <div class="section-property-development__bottom-col section-property-development__bottom-col--left">
                   {% if bottom_left_subhead|default('') %}
                     <p class="section-property-development__subhead">{{ bottom_left_subhead }}</p>
                   {% endif %}
@@ -82,7 +83,7 @@
                     </div>
                   {% endif %}
                 </div>
-                <div class="section-property-development__bottom-col">
+                <div class="section-property-development__bottom-col section-property-development__bottom-col--right">
                   {% if bottom_right_subhead|default('') %}
                     <p class="section-property-development__subhead">{{ bottom_right_subhead }}</p>
                   {% endif %}

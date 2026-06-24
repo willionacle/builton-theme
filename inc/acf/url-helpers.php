@@ -170,13 +170,47 @@ function builton_explore_dual_context() {
 }
 
 /**
- * Resolve the first 5 rows of the Project page's "projects" repeater into
- * footer-ready {title, href} pairs, deep-linking to each project's existing
- * `project-N-title` heading anchor (see views/page-project.twig).
+ * Title-case a string, lowercasing every word first so ACF entries typed in
+ * ALL CAPS or Title Case both end up consistent — except words matching
+ * $acronyms (compared letters-only, so trailing punctuation like "BGC," still
+ * matches), which are kept fully uppercase. Also collapses stray whitespace
+ * and normalizes comma spacing to "X, Y", in case content was typed messily.
  *
+ * @param string        $text     Raw string.
+ * @param array<string> $acronyms Acronyms to preserve uppercase, e.g. "BGC".
+ * @return string
+ */
+function builton_title_case_preserving_acronyms( $text, array $acronyms = [ 'BGC' ] ) {
+	$acronym_lookup = array_flip( array_map( 'strtoupper', $acronyms ) );
+
+	$text = preg_replace( '/\s*,\s*/u', ', ', trim( (string) $text ) );
+	$text = preg_replace( '/\s+/u', ' ', $text );
+
+	$words = preg_split( '/(\s+)/u', $text, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE );
+
+	foreach ( $words as &$word ) {
+		$letters = preg_replace( '/[^A-Za-z]/u', '', $word );
+		if ( isset( $acronym_lookup[ strtoupper( $letters ) ] ) ) {
+			$word = strtoupper( $word );
+			continue;
+		}
+		$word = mb_convert_case( mb_strtolower( $word, 'UTF-8' ), MB_CASE_TITLE, 'UTF-8' );
+	}
+
+	return implode( '', $words );
+}
+
+/**
+ * Resolve rows of the Project page's "projects" repeater into {title, href}
+ * pairs, deep-linking to each project's existing `project-N-title` heading
+ * anchor (see views/page-project.twig). Shared by two call sites: the
+ * footer "Portfolio" column (capped to 5 for column space) and the Projects
+ * page header sub-nav (effectively uncapped).
+ *
+ * @param int $limit Max number of rows to return. Default 5 (footer behavior).
  * @return array<int, array<string, string>>
  */
-function builton_footer_portfolio_context() {
+function builton_footer_portfolio_context( $limit = 5 ) {
 	$page = get_page_by_path( 'projects' );
 	if ( ! $page || ! function_exists( 'get_field' ) ) {
 		return [];
@@ -186,9 +220,10 @@ function builton_footer_portfolio_context() {
 	$href_base = (string) get_permalink( $page->ID );
 	$items     = [];
 
-	foreach ( array_slice( $rows, 0, 5 ) as $i => $row ) {
+	foreach ( array_slice( $rows, 0, $limit ) as $i => $row ) {
+		$title = is_array( $row ) ? (string) ( $row['project_title'] ?? '' ) : '';
 		$items[] = [
-			'title' => is_array( $row ) ? (string) ( $row['project_title'] ?? '' ) : '',
+			'title' => builton_title_case_preserving_acronyms( $title ),
 			'href'  => $href_base . '#project-' . ( $i + 1 ) . '-title',
 		];
 	}

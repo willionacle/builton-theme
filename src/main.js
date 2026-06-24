@@ -48,10 +48,39 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ScrollSmoother: create before any ScrollTrigger-based animations (uses #smooth-wrapper / #smooth-content from base.twig)
-  ScrollSmoother.create({
+  const smoother = ScrollSmoother.create({
     smooth: 1,
     effects: true,
     smoothTouch: 0.1,
+  });
+
+  // ScrollSmoother transforms #smooth-content instead of using native scrolling, so it swallows
+  // the browser's default hash-anchor jump (e.g. footer "Portfolio" links to
+  // /projects/#project-N-title) — drive it through the smoother instead, both for the initial
+  // page load and for same-page anchor clicks.
+  const scrollSmootherToHash = (hash) => {
+    const target = hash && document.querySelector(hash);
+    if (!target) return;
+    // .site-header is position: fixed, so it overlaps the top of the viewport — pull the
+    // scroll position up by its rendered height so the target isn't tucked underneath it.
+    const headerOffset = document.querySelector('.site-header')?.offsetHeight || 0;
+    smoother.scrollTo(smoother.offset(target, 'top') - headerOffset, true);
+  };
+
+  if (window.location.hash) {
+    window.addEventListener('load', () => {
+      ScrollTrigger.refresh();
+      scrollSmootherToHash(window.location.hash);
+    });
+  }
+
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href*="#"]');
+    if (!link) return;
+    const url = new URL(link.href, window.location.href);
+    if (url.pathname !== window.location.pathname || !url.hash) return;
+    event.preventDefault();
+    scrollSmootherToHash(url.hash);
   });
 
   const demo = document.querySelector('[data-gsap-demo]');
@@ -89,6 +118,34 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // Projects page sub-nav: scroll-spy underline via ScrollTrigger (one trigger per project
+  // section); does not touch the delegated anchor-click handler above -- clicking a link still
+  // smooth-scrolls via scrollSmootherToHash, this just toggles which link is marked .is-active as
+  // sections pass by.
+  const projectSubnav = document.querySelector('[data-project-subnav]');
+  if (projectSubnav) {
+    const subnavLinks = projectSubnav.querySelectorAll('[data-project-subnav-link]');
+    const setActiveLink = (link) => {
+      subnavLinks.forEach((l) => l.classList.toggle('is-active', l === link));
+      link?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+    };
+
+    subnavLinks.forEach((link) => {
+      const hash = new URL(link.href, window.location.href).hash;
+      const heading = hash ? document.querySelector(hash) : null;
+      const section = heading ? heading.closest('.single-project') : null;
+      if (!section) return;
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setActiveLink(link),
+        onEnterBack: () => setActiveLink(link),
+      });
+    });
   }
 
   // Mobile hamburger: animate to X and open/close full-screen overlay

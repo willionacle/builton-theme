@@ -3,6 +3,7 @@
 #}
 {% set eyebrow = eyebrow|default('') %}
 {% set intro = intro|default('') %}
+{% if eyebrow or intro %}
 <section class="page-intro"{% if eyebrow %} aria-labelledby="page-intro-eyebrow"{% elseif intro %} aria-label="{{ __( 'Introduction', 'builton' ) }}"{% endif %}>
   <div class="page-intro__inner">
     {% if eyebrow %}
@@ -15,3 +16,4 @@
     {% endif %}
   </div>
 </section>
+{% endif %}

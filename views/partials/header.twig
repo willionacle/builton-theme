@@ -20,10 +20,10 @@
         }) }}
       {% else %}
         <ul class="site-header__menu">
-          <li><a href="{{ site.url }}/what-we-do/">What we do</a></li>
-          <li><a href="{{ site.url }}/projects/">Projects</a></li>
-          <li><a href="{{ site.url }}/team/">Team</a></li>
-          <li><a href="{{ site.url }}/contact/">Contact</a></li>
+          <li><a href="{{ site.url }}/what-we-do/" aria-current="{{ function('is_page', 'what-we-do') ? 'page' : '' }}">What we do</a></li>
+          <li><a href="{{ site.url }}/projects/" aria-current="{{ function('is_page', 'projects') ? 'page' : '' }}">Projects</a></li>
+          <li><a href="{{ site.url }}/team/" aria-current="{{ function('is_page', 'team') ? 'page' : '' }}">Team</a></li>
+          <li><a href="{{ site.url }}/contact/" aria-current="{{ function('is_page', 'contact') ? 'page' : '' }}">Contact</a></li>
         </ul>
       {% endif %}
       <button type="button" class="site-header__hamburger" aria-label="{{ __( 'Open menu', 'builton' ) }}" aria-expanded="false" aria-controls="site-header__overlay">
@@ -33,6 +33,17 @@
       </button>
     </nav>
   </div>
+  {% if function('is_page', 'projects') and project_nav_items|default([])|length > 0 %}
+    <nav class="site-header__subnav" aria-label="{{ __( 'Projects', 'builton' ) }}" data-project-subnav>
+      <ul class="site-header__subnav-list">
+        {% for item in project_nav_items %}
+          <li class="site-header__subnav-item">
+            <a href="{{ item.href }}" class="site-header__subnav-link" data-project-subnav-link>{{ item.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  {% endif %}
   <div class="site-header__overlay" id="site-header__overlay" aria-hidden="true">
     <div class="site-header__overlay-inner">
       {% if function('has_nav_menu', 'primary') %}
@@ -44,10 +55,10 @@
         }) }}
       {% else %}
         <ul class="site-header__overlay-menu">
-          <li><a href="{{ site.url }}/what-we-do/">What we do</a></li>
-          <li><a href="{{ site.url }}/projects/">Projects</a></li>
-          <li><a href="{{ site.url }}/team/">Team</a></li>
-          <li><a href="{{ site.url }}/contact/">Contact</a></li>
+          <li><a href="{{ site.url }}/what-we-do/" aria-current="{{ function('is_page', 'what-we-do') ? 'page' : '' }}">What we do</a></li>
+          <li><a href="{{ site.url }}/projects/" aria-current="{{ function('is_page', 'projects') ? 'page' : '' }}">Projects</a></li>
+          <li><a href="{{ site.url }}/team/" aria-current="{{ function('is_page', 'team') ? 'page' : '' }}">Team</a></li>
+          <li><a href="{{ site.url }}/contact/" aria-current="{{ function('is_page', 'contact') ? 'page' : '' }}">Contact</a></li>
         </ul>
       {% endif %}
     </div>

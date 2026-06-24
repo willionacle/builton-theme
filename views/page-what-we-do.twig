@@ -6,8 +6,8 @@
       {% include 'sections/headline-reveal.twig' with headline_reveal_hero %}
     {% endif %}
     {% include 'sections/property-development.twig' with section_1|default({})|merge({ heading_id: 'wwd-section-1-heading' }) %}
-    {% include 'sections/property-development.twig' with section_2|default({})|merge({ heading_id: 'wwd-section-2-heading' }) %}
-    {% include 'sections/property-development.twig' with section_3|default({})|merge({ heading_id: 'wwd-section-3-heading' }) %}
+    {% include 'sections/property-development.twig' with section_2|default({})|merge({ heading_id: 'wwd-section-2-heading', media_layout: 'grid' }) %}
+    {% include 'sections/property-development.twig' with section_3|default({})|merge({ heading_id: 'wwd-section-3-heading', image_side: 'right' }) %}
     {% include 'sections/page-intro.twig' with page_intro|default({}) %}
     {% include 'sections/text-block.twig' with text_block_1|default({}) %}
     {% include 'sections/text-block.twig' with text_block_2|default({}) %}

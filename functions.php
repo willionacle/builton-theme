@@ -171,14 +171,17 @@ function register_team_members_cpt() {
 }
 
 /**
- * Add the footer's Portfolio links to every page's Timber context, since
- * partials/footer.twig is included unconditionally from base.twig.
+ * Add the footer's Portfolio links, and the header sub-nav's project links
+ * (rendered only on the Projects page), to every page's Timber context,
+ * since partials/footer.twig and partials/header.twig are both included
+ * unconditionally/unscoped from base.twig.
  *
  * @param array<string, mixed> $context Timber context.
  * @return array<string, mixed>
  */
 function builton_add_footer_context( $context ) {
-	$context['footer_projects'] = builton_footer_portfolio_context();
+	$context['footer_projects']   = builton_footer_portfolio_context();
+	$context['project_nav_items'] = builton_footer_portfolio_context( 99 );
 	return $context;
 }
 add_filter( 'timber/context', 'builton_add_footer_context' );
