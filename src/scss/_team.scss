@@ -1,0 +1,513 @@
+// Team page: title, team grid/cards, CTA section.
+// @font-face rules for Tandem Sohne / Tandem Season Serif live in _fonts.scss
+// (this file previously also declared a 700-weight Sohne face pointing at a
+// dead CDN asset — dropped, see the comment in _fonts.scss).
+
+/* ---------- Scope + tokens ---------- */
+.builton-team-wrapper {
+  --tandem-team-ink: #1e1e1c;
+  --tandem-team-cream: #f7f7f0;
+  --tandem-team-muted: #8c8c85;
+  --tandem-team-divider: #d6dbd5;
+  --tandem-team-badge-border: #818181;
+  --tandem-team-font-sans: 'Tandem Sohne', Arial, sans-serif;
+  --tandem-team-font-serif: 'Tandem Season Serif', Georgia, serif;
+  --tandem-team-ease: cubic-bezier(0.19, 1, 0.22, 1);
+  /* Closest practical match to the original's internal GSAP ease curve
+     (referenced only by an internal numeric id in the compiled site, so
+     this is an approximation, not an extracted exact value). */
+  --tandem-team-reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --tandem-team-reveal-ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+
+  display: block;
+  background-color: var(--tandem-team-cream);
+  color: var(--tandem-team-ink);
+  font-family: var(--tandem-team-font-sans);
+  font-weight: 300;
+  line-height: 1.4;
+  text-align: left;
+  overflow: hidden;
+  margin-top: 116px;
+}
+
+.builton-team-wrapper * {
+  box-sizing: border-box;
+}
+
+.builton-team-wrapper a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.builton-team-wrapper img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---------- Page title ---------- */
+.builton-team-title {
+  overflow: hidden;
+  padding: 0rem 1rem 0;
+}
+
+.builton-team-title__heading {
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--tandem-team-ink);
+  font-family: var(--tandem-team-font-sans);
+  font-size: 13.2vw;
+  font-weight: 800;
+  line-height: 0.9;
+  margin-top: -0.05em;
+}
+
+/* Entrance: the heading word masks in from below, matching the original
+   site's "split text into words, mask + slide up" load-in. Plays once. */
+.builton-team-title__mask {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.builton-team-title__word {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.9s var(--tandem-team-reveal-ease), opacity 0.9s var(--tandem-team-reveal-ease);
+}
+
+.builton-team-title.is-revealed .builton-team-title__word {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media screen and (max-width: 991px) {
+  .builton-team-title {
+    padding-top: 0;
+  }
+  .builton-team-title__heading {
+    margin-bottom: 0.25rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .builton-team-title {
+    padding-top: 0;
+  }
+  .builton-team-title__heading {
+    font-size: 15.9vw;
+  }
+}
+
+/* ---------- Team grid ---------- */
+.builton-team-grid-section {
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+  padding: 0 1rem;
+  overflow: hidden;
+}
+
+.builton-team-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 1rem;
+  row-gap: 8rem;
+  max-width: 105rem;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 991px) {
+  .builton-team-grid-section {
+    margin-top: 5rem;
+  }
+  .builton-team-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 6rem;
+  }
+  .builton-team-spacer {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .builton-team-grid {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .builton-team-grid-section {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+  .builton-team-grid {
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+  }
+}
+
+/* ---------- Team card ---------- */
+.builton-team-card {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  gap: 0.65rem;
+}
+
+.builton-team-card__photo {
+  position: relative;
+  aspect-ratio: 6 / 8;
+  border: 1px solid var(--tandem-team-ink);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  /* Entrance: wrapper scales up from 75% as it settles into place. */
+  transform: scale(0.75);
+  transition: transform 2s var(--tandem-team-reveal-ease);
+}
+
+.builton-team-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Entrance: image starts zoomed in 1.5x and settles to 1x, opposite the
+     wrapper's scale-up, so the photo itself doesn't look stretched. */
+  transform: scale(1.5);
+  transition: transform 2s var(--tandem-team-reveal-ease);
+}
+
+.builton-team-card.is-revealed .builton-team-card__photo,
+.builton-team-card.is-revealed .builton-team-card__img {
+  transform: scale(1);
+}
+
+.builton-team-card__img--hover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* !important: WordPress themes/plugins commonly ship their own generic
+     "img { ... }" rules (lazy-load libraries, lightbox plugins, etc.).
+     This toggle has to win that fight unconditionally, or the swap silently
+     does nothing. */
+  display: none !important;
+}
+
+.builton-team-card__photo:hover .builton-team-card__img--hover {
+  display: block !important;
+}
+
+.builton-team-card__caption {
+  cursor: pointer;
+  /* Entrance: caption fades in and slides in slightly from the right. */
+  opacity: 0;
+  transform: translateX(5%);
+  transition: opacity 2s var(--tandem-team-reveal-ease) 0.5s, transform 2s var(--tandem-team-reveal-ease) 0.5s;
+}
+
+.builton-team-card__caption:focus-visible {
+  outline: 0.125rem solid currentColor;
+  outline-offset: 0.25rem;
+}
+
+.builton-team-card.is-revealed .builton-team-card__caption {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.builton-team-card__caption-top {
+  display: flex;
+  align-items: center;
+}
+
+.builton-team-card__name {
+  margin: 0;
+  font-family: var(--tandem-team-font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.builton-team-card__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  margin-left: auto;
+}
+
+/* This inner wrapper is what actually animates: it's 1.5rem wide while the
+   bio is closed, and squeezes to 0.3rem while open, pulling the 3 dots
+   together as a "this is now expanded" indicator — exactly like the
+   original site's bullet behavior. */
+.builton-team-card__dots-inner {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  transition: width 1.4s var(--tandem-team-ease);
+}
+
+.builton-team-card.is-open .builton-team-card__dots-inner {
+  width: 0.3rem;
+  transition: width 1s var(--tandem-team-ease);
+}
+
+.builton-team-card__dots-inner span {
+  position: absolute;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999rem;
+  background-color: var(--tandem-team-ink);
+}
+
+.builton-team-card__dots-inner span:nth-child(1) {
+  left: 0;
+}
+
+.builton-team-card__dots-inner span:nth-child(2) {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.builton-team-card__dots-inner span:nth-child(3) {
+  right: 0;
+}
+
+.builton-team-card__role {
+  margin: 0;
+  color: var(--tandem-team-muted);
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* New field, not part of the original site — a department/team tag
+   shown under the role. */
+.builton-team-card__department {
+  margin: 0;
+  color: var(--tandem-team-muted);
+  font-size: 0.875rem;
+  font-weight: 300;
+}
+
+.builton-team-card__badge {
+  display: inline-flex;
+  position: absolute;
+  top: 0.35rem;
+  left: 0.35rem;
+  z-index: 2;
+  align-items: center;
+  gap: 0.3rem;
+  background-color: var(--tandem-team-ink);
+  /* Text + arrow are bright/visible at rest, not muted — hovering the
+     card brightens the badge further (see below) rather than being the
+     only thing that makes it visible at all. */
+  color: var(--tandem-team-cream);
+  border-radius: 0.25rem;
+  padding: 0.2rem 0.4rem 0.25rem;
+  font-size: 0.875rem;
+  /* Entrance: badge fades in and slides in diagonally from the bottom-right. */
+  opacity: 0;
+  transform: translate(25%, 25%);
+  transition:
+    filter 0.35s var(--tandem-team-ease),
+    opacity 1.6s var(--tandem-team-reveal-ease) 0.5s,
+    transform 1.6s var(--tandem-team-reveal-ease) 0.5s;
+}
+
+.builton-team-card.is-revealed .builton-team-card__badge {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.builton-team-card:hover .builton-team-card__badge,
+.builton-team-card__badge:hover,
+.builton-team-card__badge:focus-visible {
+  filter: brightness(1.5);
+}
+
+.builton-team-card__badge-text {
+  color: var(--tandem-team-cream);
+}
+
+/* The original reuses its site-wide "footer_link-arrow" class here, which
+   is a bordered circle (same mini-button look as the CTA arrows below),
+   not a bare icon. Drawn with CSS instead of an inline <svg> — WordPress's
+   content sanitizer strips raw <svg> tags from Custom HTML blocks unless
+   the account has the unfiltered_html capability, which silently deletes
+   the icon while leaving the "LinkedIn" text behind. An empty span styled
+   with pseudo-elements can't be stripped the same way. */
+.builton-team-card__badge-arrow {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  height: 1rem;
+  border: 1.5px solid var(--tandem-team-badge-border);
+  border-radius: 999rem;
+  overflow: hidden;
+}
+
+/* This inner element matches the original's "footer_link-arrow-icon"
+   wrapper: a plain flex-centered box that fills the circle above and
+   holds the icon — kept separate from the circle/border itself. */
+.builton-team-card__badge-arrow-icon {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.builton-team-card__badge-arrow-icon::before,
+.builton-team-card__badge-arrow-icon::after {
+  content: '';
+  position: absolute;
+  /* Same fixed gray as the circle's border, rather than currentColor —
+     keeps the icon and its ring a consistent color, independent of the
+     "LinkedIn" text's color. */
+  background-color: var(--tandem-team-badge-border);
+}
+
+.builton-team-card__badge-arrow-icon::before {
+  left: 0.2rem;
+  top: 50%;
+  width: 0.45rem;
+  height: 1.5px;
+  transform: translateY(-50%);
+}
+
+.builton-team-card__badge-arrow-icon::after {
+  right: 0.2rem;
+  top: 50%;
+  width: 0.25rem;
+  height: 0.25rem;
+  background-color: transparent;
+  border-top: 1.5px solid var(--tandem-team-badge-border);
+  border-right: 1.5px solid var(--tandem-team-badge-border);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Click-to-expand bio panel: starts collapsed (height: 0). The "open"
+   height itself is animated by JS (team.js), since a plain CSS transition
+   can't animate to "auto"/content height — everything else here (text
+   fade, dots squeeze, divider) is plain CSS. */
+.builton-team-card__bio {
+  height: 0;
+  overflow: hidden;
+}
+
+.builton-team-card__bio p {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 300;
+  opacity: 0;
+  transition: opacity 1.6s var(--tandem-team-ease);
+}
+
+.builton-team-card.is-open .builton-team-card__bio p {
+  opacity: 1;
+}
+
+.builton-team-card__divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--tandem-team-divider);
+  transform: translateY(-0.5rem);
+  /* Entrance fade-in (scroll reveal) plus the closed-state open/close
+     transition speeds (slower, 1.4s/1.2s — these are the "closing"
+     speeds; opening is faster, see .is-open below). */
+  transition:
+    opacity 1.25s var(--tandem-team-reveal-ease-soft),
+    background-color 1.4s var(--tandem-team-ease),
+    transform 1.2s var(--tandem-team-ease);
+}
+
+.builton-team-card.is-revealed .builton-team-card__divider {
+  opacity: 1;
+}
+
+.builton-team-card.is-open .builton-team-card__divider {
+  background-color: var(--tandem-team-ink);
+  transform: translateY(0);
+  transition:
+    opacity 1.25s var(--tandem-team-reveal-ease-soft),
+    background-color 1.6s var(--tandem-team-ease),
+    transform 1s var(--tandem-team-ease);
+}
+
+/* Hovering the name/bullets darkens the divider as a "this is clickable"
+   hint, independent of open/closed state. */
+.builton-team-card__caption:hover ~ .builton-team-card__divider {
+  background-color: var(--tandem-team-ink);
+  transition: background-color 0.35s ease;
+}
+
+/* ---------- Intro paragraph + grid spacer ---------- */
+/* The original spans this across 2 grid columns (verified in its source
+   CSS), which is what makes row 1 land exactly on Dimitri + Tony + Intro
+   with no leftover cell. That, in turn, is what pushes the (currently
+   empty) .builton-team-spacer below into being the FIRST cell of row 2 —
+   producing the blank space on the left of row 2 that the original has. */
+.builton-team-intro {
+  grid-column: span 2;
+  justify-self: center;
+  max-width: 28rem;
+}
+
+.builton-team-intro p {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+.builton-team-spacer {
+  display: block;
+}
+
+@media screen and (max-width: 767px) {
+  .builton-team-intro {
+    /* The original also moves this to the very front of the grid at this
+       breakpoint (order: -9999), ahead of Dimitri/Tony — it stays span 2,
+       so it ends up as its own full-width row at the top of the grid. */
+    order: -9999;
+    max-width: 32rem;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .builton-team-intro {
+    /* At this breakpoint the original also drops it to span 1 (the grid
+       itself is single-column here too, so visually this doesn't change
+       anything — included for source fidelity). */
+    grid-column: span 1;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+/* The original site doesn't account for this either, but it's a
+   near-zero-cost, low-risk accessibility improvement: people who've asked
+   their OS for less motion get the final state instantly instead of the
+   scroll-reveal animation. Hover/focus interactions are untouched. */
+@media (prefers-reduced-motion: reduce) {
+  .builton-team-title__word,
+  .builton-team-card__photo,
+  .builton-team-card__img,
+  .builton-team-card__caption,
+  .builton-team-card__badge,
+  .builton-team-card__divider {
+    transition-duration: 0.01ms !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .builton-team-card__dots-inner,
+  .builton-team-card__bio p {
+    transition-duration: 0.01ms !important;
+  }
+}

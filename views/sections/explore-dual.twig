@@ -1,0 +1,114 @@
+{#
+  Intro + two cards (light capabilities card + a second card).
+  Expects: subheading, heading, light_card { title, href, lines[], thumbs[] }
+  Right card — pass ONE of:
+    leadership { title, href, portraits[] } — dark card, hover face-cluster (default)
+    portfolio_card { title, href, image { url, alt } } — light card, single full-bleed static image
+  Each portrait: src, alt, top, left, width (%), z, dim (bool), hidden (bool), hx, hy (px hover offset).
+#}
+<section class="explore-dual" aria-label="{{ heading|default('Explore')|striptags|e }}">
+  <div class="explore-dual__intro">
+    {% if subheading|default('') %}
+      <p class="explore-dual__subheading">{{ subheading }}</p>
+    {% endif %}
+    {% if heading|default('') %}
+      <h2 class="explore-dual__heading">{{ heading }}</h2>
+    {% endif %}
+  </div>
+
+  <div class="explore-dual__grid">
+    {# Card 1 — light #}
+    <a
+      class="explore-dual__card explore-dual__card--light"
+      href="{{ light_card.href|default('#') }}"
+      data-explore-dual-card
+    >
+      <div class="explore-dual__header">
+        <span class="explore-dual__card-title">{{ light_card.title|default('Explore') }}</span>
+        <span class="explore-dual__arrow" aria-hidden="true">
+          <span class="explore-dual__arrow-motion" data-explore-arrow>
+            <svg class="explore-dual__arrow-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3 7h6.5M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </span>
+      </div>
+      <div class="explore-dual__body explore-dual__body--light">
+        {% if light_card.lines|default([])|length > 0 %}
+          <ul class="explore-dual__list">
+            {% for line in light_card.lines %}
+              <li class="explore-dual__list-item">{{ line }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% set thumbs = light_card.thumbs|default([]) %}
+        {% if thumbs|length > 0 %}
+          <div class="explore-dual__thumbs">
+            {% for t in thumbs %}
+              <span class="explore-dual__thumb">
+                <img src="{{ t.src }}" alt="{{ t.alt|default('') }}" loading="lazy" width="120" height="160">
+              </span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </a>
+
+    {# Card 2 — leadership face-cluster (dark) by default, or a light
+       portfolio-image card when portfolio_card is passed #}
+    {% set is_portfolio = portfolio_card|default(false) ? true : false %}
+    {% set right = is_portfolio ? portfolio_card : leadership %}
+    <a
+      class="explore-dual__card explore-dual__card--{{ is_portfolio ? 'light' : 'dark' }}"
+      href="{{ right.href|default('#') }}"
+      data-explore-dual-card
+      {% if not is_portfolio %}data-explore-leadership-card{% endif %}
+    >
+      <div class="explore-dual__header{{ is_portfolio ? '' : ' explore-dual__header--dark' }}">
+        <span class="explore-dual__card-title">{{ right.title|default('Team') }}</span>
+        <span class="explore-dual__arrow{{ is_portfolio ? '' : ' explore-dual__arrow--dark' }}" aria-hidden="true">
+          <span class="explore-dual__arrow-motion" data-explore-arrow>
+            <svg class="explore-dual__arrow-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3 7h6.5M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </span>
+      </div>
+      <div class="explore-dual__body explore-dual__body--{{ is_portfolio ? 'portfolio' : 'dark' }}">
+        {% if is_portfolio %}
+          <div class="explore-dual__portfolio-image-wrap">
+            <img
+              class="explore-dual__portfolio-image"
+              src="{{ portfolio_card.image.url|default('') }}"
+              alt="{{ portfolio_card.image.alt|default('') }}"
+              loading="lazy"
+            >
+          </div>
+        {% else %}
+          <div class="explore-dual__cluster" data-leadership-cluster>
+            {% for p in leadership.portraits|default([]) %}
+              <div
+                class="explore-dual__face{% if p.hidden|default(false) %} explore-dual__face--back{% endif %}{% if p.dim|default(false) %} explore-dual__face--dim{% endif %}"
+                style="top: {{ p.top|default('0') }}; left: {{ p.left|default('0') }}; width: {{ p.width|default('25%') }}; z-index: {{ p.z|default(1) }};"
+                data-dx="{{ p.hx|default(0) }}"
+                data-dy="{{ p.hy|default(0) }}"
+                {% if p.hidden|default(false) %}data-leadership-hidden{% endif %}
+              >
+                <div class="explore-dual__face-box">
+                  <img
+                    class="explore-dual__face-img"
+                    src="{{ p.src }}"
+                    alt="{{ p.alt|default('') }}"
+                    loading="lazy"
+                    width="200"
+                    height="200"
+                  >
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </a>
+  </div>
+</section>

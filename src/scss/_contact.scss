@@ -1,0 +1,557 @@
+// Contact page: title, form, quick-contact info, offices grid.
+// @font-face rules for Tandem Sohne / Tandem Season Serif live in _fonts.scss.
+
+/* ---------- Scope + tokens ---------- */
+.builton-contact-wrapper {
+  --tandem-contact-ink: #1e1e1c;
+  --tandem-contact-cream: #f7f7f0;
+  --tandem-contact-sage: #c1c9c0;
+  --tandem-contact-muted: #8c8c85;
+  --tandem-contact-ease: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --tandem-contact-font-sans: 'Tandem Sohne', Arial, sans-serif;
+  --tandem-contact-font-serif: 'Tandem Season Serif', Georgia, serif;
+  /* Closest practical match to the original's internal GSAP ease curve
+     (referenced only by an internal numeric id in the compiled site, so
+     this is an approximation, not an extracted exact value). */
+  --tandem-contact-reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  display: block;
+  background-color: var(--tandem-contact-sage);
+  color: var(--tandem-contact-ink);
+  font-family: var(--tandem-contact-font-sans);
+  font-weight: 300;
+  line-height: 1.4;
+  text-align: left;
+  padding-bottom: 8rem;
+  overflow: hidden;
+}
+
+.builton-contact-wrapper * {
+  box-sizing: border-box;
+}
+
+.builton-contact-wrapper a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.builton-contact-wrapper img {
+  display: block;
+  max-width: 100%;
+}
+
+.builton-contact-wrapper button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.builton-contact-wrapper input,
+.builton-contact-wrapper textarea {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  border-radius: 0;
+}
+
+.builton-contact-wrapper *[tabindex]:focus-visible,
+.builton-contact-wrapper button:focus-visible,
+.builton-contact-wrapper input:focus-visible,
+.builton-contact-wrapper textarea:focus-visible,
+.builton-contact-wrapper a:focus-visible {
+  outline: 0.125rem solid #4d65ff;
+  outline-offset: 0.125rem;
+}
+
+/* [hidden] ties on specificity with any single-class rule (e.g.
+   .builton-contact-form's own "display: flex"), and author CSS loaded after
+   the UA stylesheet wins that tie — so without this, toggling the hidden
+   attribute via contact.js would silently fail to hide the form. */
+.builton-contact-wrapper [hidden] {
+  display: none !important;
+}
+
+/* ---------- Page title ---------- */
+.builton-contact-title {
+  display: flex;
+  flex-flow: column;
+  gap: 4rem;
+  padding: 12rem 1rem 0;
+  overflow: hidden;
+}
+
+.builton-contact-title__heading {
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--tandem-contact-ink);
+  font-family: var(--tandem-contact-font-sans);
+  font-size: 13.2vw;
+  font-weight: 800;
+  line-height: 0.9;
+  margin-top: -0.05em;
+}
+
+/* Entrance: the heading word masks in from below, matching the original
+   site's "split text into words, mask + slide up" load-in. Plays once,
+   driven by contact.js adding .is-revealed via IntersectionObserver. */
+.builton-contact-title__mask {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.builton-contact-title__word {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.9s var(--tandem-contact-reveal-ease), opacity 0.9s var(--tandem-contact-reveal-ease);
+}
+
+.builton-contact-title.is-revealed .builton-contact-title__word {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.builton-contact-subheader {
+  text-align: center;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.builton-contact-subheader__heading {
+  margin: 0;
+  font-family: var(--tandem-contact-font-serif);
+  font-size: 3rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.builton-contact-subheader__text {
+  max-width: 27rem;
+  margin: 1rem auto 0;
+  padding: 0 1rem;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+@media screen and (max-width: 991px) {
+  .builton-contact-title {
+    gap: 4rem;
+    padding-top: 7.5rem;
+  }
+  .builton-contact-subheader__heading {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .builton-contact-title {
+    padding-top: 7.5rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .builton-contact-title {
+    padding-top: 6rem;
+  }
+  .builton-contact-title__heading {
+    font-size: 15.9vw;
+  }
+}
+
+/* ---------- Contact form ---------- */
+.builton-contact-form-section {
+  margin: 4rem auto 6rem;
+  padding: 0 1rem;
+}
+
+.builton-contact-form {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 0.7rem 0.75rem 0.75rem;
+  background-color: var(--tandem-contact-ink);
+  border-radius: 0.5rem;
+}
+
+.builton-contact-form__top,
+.builton-contact-form__bottom {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+}
+
+.builton-contact-form__top {
+  gap: 1rem;
+}
+
+.builton-contact-form__bottom {
+  gap: 0.5rem;
+}
+
+.builton-contact-form__label {
+  color: var(--tandem-contact-sage);
+  font-size: 0.875rem;
+}
+
+.builton-contact-form__textarea {
+  min-height: 15rem;
+  resize: none;
+  color: var(--tandem-contact-cream);
+  font-family: var(--tandem-contact-font-serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.builton-contact-form__textarea::placeholder {
+  color: var(--tandem-contact-muted);
+}
+
+.builton-contact-form__field {
+  width: 100%;
+  padding: 0.5rem 0;
+  color: var(--tandem-contact-cream);
+  font-size: 0.875rem;
+  border-bottom: 1px solid rgba(247, 247, 240, 0.2);
+  transition: border-color 0.35s var(--tandem-contact-ease);
+}
+
+.builton-contact-form__field:focus {
+  border-bottom-color: #fff;
+}
+
+.builton-contact-form__field::placeholder {
+  color: var(--tandem-contact-muted);
+}
+
+.builton-contact-form__submit {
+  display: flex;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1;
+  height: 4rem;
+  margin-left: auto;
+  background-color: rgba(247, 247, 240, 0.2);
+  border-radius: 999rem;
+  transition: background-color 0.35s var(--tandem-contact-ease);
+}
+
+.builton-contact-form__submit:hover {
+  background-color: rgba(247, 247, 240, 0.35);
+}
+
+/* Same CSS-drawn arrow technique used in the contact-form skin: a short
+   line plus a 45deg-rotated corner, both via pseudo-elements, instead of an
+   inline <svg>. */
+.builton-contact-form__submit-icon {
+  position: relative;
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--tandem-contact-cream);
+}
+
+.builton-contact-form__submit-icon::before,
+.builton-contact-form__submit-icon::after {
+  content: '';
+  position: absolute;
+  background-color: currentColor;
+}
+
+.builton-contact-form__submit-icon::before {
+  left: 0.1rem;
+  top: 50%;
+  width: 1.1rem;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.builton-contact-form__submit-icon::after {
+  right: 0.15rem;
+  top: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: transparent;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.builton-contact-form__success,
+.builton-contact-form__error {
+  max-width: 32rem;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+}
+
+.builton-contact-form__success {
+  padding: 4rem 1.25rem;
+  background-color: var(--tandem-contact-ink);
+}
+
+.builton-contact-form__success-title {
+  margin: 0;
+  color: var(--tandem-contact-cream);
+  font-family: var(--tandem-contact-font-serif);
+  font-size: 1.5rem;
+}
+
+.builton-contact-form__success-text {
+  margin: 0.5rem 0 0;
+  color: var(--tandem-contact-muted);
+}
+
+.builton-contact-form__error {
+  padding: 0.65rem 1rem 0.85rem;
+  background-color: var(--tandem-contact-ink);
+  color: var(--tandem-contact-sage);
+  text-align: center;
+}
+
+.builton-contact-form__error p {
+  margin: 0;
+}
+
+@media screen and (max-width: 991px) {
+  .builton-contact-form-section {
+    margin-bottom: 4rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .builton-contact-form-section {
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+  }
+  .builton-contact-form {
+    padding-bottom: 1rem;
+  }
+  .builton-contact-form__textarea {
+    min-height: 13rem;
+  }
+}
+
+/* ---------- Quick contact info ---------- */
+.builton-contact-info {
+  position: relative;
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  padding-top: 92px;
+}
+
+.builton-contact-info__row {
+  border-bottom: 1px solid var(--tandem-contact-ink);
+}
+
+/* !important on every visual property: WordPress themes commonly ship
+   their own "button { ... }" reset (small uppercase text, its own
+   font/weight/color) that's an element selector tied in specificity with
+   single-class selectors like this one. Without this, the theme's button
+   style silently wins and this renders as plain small text instead of the
+   bold display-size treatment. */
+.builton-contact-info__text {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0.1rem 0 0.2rem !important;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  text-align: left !important;
+  text-transform: uppercase !important;
+  font-family: var(--tandem-contact-font-sans) !important;
+  font-size: 6.5vw !important;
+  font-weight: 800 !important;
+  line-height: 1.4 !important;
+  color: var(--tandem-contact-ink) !important;
+  transition: color 0.3s var(--tandem-contact-ease);
+}
+
+.builton-contact-info__text:hover {
+  color: #666b65 !important;
+}
+
+.builton-contact-info__copied {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  padding: 0.25rem 0.6rem;
+  background-color: var(--tandem-contact-ink);
+  color: var(--tandem-contact-cream);
+  font-size: 0.875rem;
+  border-radius: 0.4rem;
+  opacity: 0;
+  transform: translateY(-0.3rem);
+  transition: opacity 0.25s var(--tandem-contact-ease), transform 0.25s var(--tandem-contact-ease);
+  pointer-events: none;
+}
+
+.builton-contact-info__copied.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media screen and (max-width: 991px) {
+  .builton-contact-info__text {
+    font-size: 9vw !important;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .builton-contact-info__text {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.35rem !important;
+    font-size: 8.5vw !important;
+  }
+}
+
+/* ---------- Offices ---------- */
+.builton-contact-address {
+  padding-top: 9rem;
+}
+
+.builton-contact-address__heading {
+  max-width: 41rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
+  font-family: var(--tandem-contact-font-serif);
+  font-size: 3rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.builton-contact-offices {
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
+  max-width: 120rem;
+  margin: 6rem auto 0;
+  padding: 0 1rem;
+}
+
+.builton-contact-offices__heading {
+  margin: 0;
+  font-family: var(--tandem-contact-font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.builton-contact-offices__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  align-items: start;
+}
+
+.builton-contact-offices__block {
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.builton-contact-offices__block--static {
+  cursor: auto;
+}
+
+.builton-contact-offices__image-wrap {
+  aspect-ratio: 16 / 9;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.builton-contact-offices__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.builton-contact-offices__meta {
+  display: flex;
+  flex-flow: row;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+}
+
+.builton-contact-offices__area {
+  font-weight: 700;
+}
+
+.builton-contact-offices__time {
+  font-weight: 200;
+}
+
+.builton-contact-offices__info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 4rem;
+}
+
+.builton-contact-offices__street {
+  font-style: normal;
+}
+
+@media screen and (max-width: 991px) {
+  .builton-contact-wrapper {
+    padding-bottom: 4rem;
+  }
+  .builton-contact-offices__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .builton-contact-address__heading {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .builton-contact-offices {
+    margin-top: 7rem;
+  }
+  .builton-contact-offices__info {
+    gap: 2rem;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+/* The original site doesn't account for this either, but it's a
+   near-zero-cost, low-risk accessibility improvement: people who've asked
+   their OS for less motion get the final state instantly instead of the
+   mask-reveal animation. */
+@media (prefers-reduced-motion: reduce) {
+  .builton-contact-title__word {
+    transition-duration: 0.01ms !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+.page-id-252 .site-main {
+  padding-top: 0;
+}
+.page-id-252 .site-footer--grid {
+  background-color: #c1c9c0;
+}
+.page-id-252 .footer-grid {
+  background-color: #c1c9c000;
+}

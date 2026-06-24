@@ -1,0 +1,111 @@
+{#
+  What we do: full-width parallax banner + Property development content block.
+  Expects: parallax_image (null|{url,alt,width,height}), main_title, main_subtitle,
+  feature_subhead, feature_body, feature_image (null|{url,alt,...}), bottom_* fields.
+#}
+{% set pd_parallax = parallax_image|default(null) %}
+{% set pd_feature_img = feature_image|default(null) %}
+{% set has_parallax = pd_parallax and pd_parallax.url|default('') %}
+{% set has_panel = main_title|default('') or main_subtitle|default('') or feature_subhead|default('') or feature_body|default('') or pd_feature_img or bottom_left_subhead|default('') or bottom_left_body|default('') or bottom_right_subhead|default('') or bottom_right_body|default('') %}
+{% set heading_id = heading_id|default('property-development-heading') %}
+{% set image_side = image_side|default('right') %} {# right (default) or left #}
+{% set panel_style = panel_style|default('muted') %} {# muted (default) or transparent #}
+{% set root_class = 'section-property-development' ~ (panel_style == 'transparent' ? ' section-property-development--transparent' : '') ~ (image_side == 'left' ? ' section-property-development--image-left' : '') %}
+{% if has_parallax or has_panel %}
+<div class="{{ root_class }}">
+  {% if has_parallax %}
+    <div class="section-property-development__parallax" data-wwd-parallax>
+      <div class="section-property-development__parallax-inner" data-wwd-parallax-inner>
+        <img
+          class="section-property-development__parallax-img"
+          src="{{ pd_parallax.url }}"
+          alt="{{ pd_parallax.alt|default('')|e('html_attr') }}"
+          {% if pd_parallax.width|default(0) > 0 %}width="{{ pd_parallax.width }}"{% endif %}
+          {% if pd_parallax.height|default(0) > 0 %}height="{{ pd_parallax.height }}"{% endif %}
+          loading="eager"
+          decoding="async"
+        >
+      </div>
+    </div>
+  {% endif %}
+
+  {% if has_panel %}
+    <section class="section-property-development__panel"{% if main_title|default('') %} aria-labelledby="{{ heading_id }}"{% else %} aria-label="{{ __( 'Property development', 'builton' ) }}"{% endif %}>
+      <div class="section-property-development__inner">
+        <header class="section-property-development__header">
+          {% if main_title|default('') %}
+            <h2 id="{{ heading_id }}" class="section-property-development__title">{{ main_title }}</h2>
+          {% endif %}
+          {% if main_subtitle|default('') %}
+            <p class="section-property-development__subtitle">{{ main_subtitle }}</p>
+          {% endif %}
+        </header>
+
+        <div class="section-property-development__grid">
+          {% set text_col %}
+            <div class="section-property-development__col section-property-development__col--feature-text">
+              {% if feature_subhead|default('') %}
+                <p class="section-property-development__subhead">{{ feature_subhead }}</p>
+              {% endif %}
+              {% if feature_body|default('') %}
+                <div class="section-property-development__body">
+                  {{ feature_body|raw }}
+                </div>
+              {% endif %}
+            </div>
+          {% endset %}
+
+          {% set media_col %}
+            <div class="section-property-development__col section-property-development__col--feature-media">
+              {% if pd_feature_img and pd_feature_img.url|default('') %}
+                <figure class="section-property-development__figure">
+                  <img
+                    class="section-property-development__feature-img"
+                    src="{{ pd_feature_img.url }}"
+                    alt="{{ pd_feature_img.alt|default('')|e('html_attr') }}"
+                    {% if pd_feature_img.width|default(0) > 0 %}width="{{ pd_feature_img.width }}"{% endif %}
+                    {% if pd_feature_img.height|default(0) > 0 %}height="{{ pd_feature_img.height }}"{% endif %}
+                    loading="lazy"
+                    decoding="async"
+                  >
+                </figure>
+              {% endif %}
+
+              <div class="section-property-development__bottom">
+                <div class="section-property-development__bottom-col">
+                  {% if bottom_left_subhead|default('') %}
+                    <p class="section-property-development__subhead">{{ bottom_left_subhead }}</p>
+                  {% endif %}
+                  {% if bottom_left_body|default('') %}
+                    <div class="section-property-development__body">
+                      {{ bottom_left_body|raw }}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="section-property-development__bottom-col">
+                  {% if bottom_right_subhead|default('') %}
+                    <p class="section-property-development__subhead">{{ bottom_right_subhead }}</p>
+                  {% endif %}
+                  {% if bottom_right_body|default('') %}
+                    <div class="section-property-development__body">
+                      {{ bottom_right_body|raw }}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endset %}
+
+          {% if image_side == 'left' %}
+            {{ media_col }}
+            {{ text_col }}
+          {% else %}
+            {{ text_col }}
+            {{ media_col }}
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+</div>
+{% endif %}

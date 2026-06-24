@@ -1,0 +1,79 @@
+{
+    "schema_version": 1,
+    "target": {
+        "type": "what_we_do_page",
+        "post_id": 0
+    },
+    "exported_at": "2026-03-29T00:00:00+00:00",
+    "fields": {
+        "headline_reveal_hero": {
+            "aria_label": "",
+            "tag": "h1",
+            "words": [
+                { "text": "WHAT" },
+                { "text": "WE" },
+                { "text": "DO" }
+            ]
+        },
+        "section_1": {
+            "image_side": "right",
+            "panel_style": "muted",
+            "parallax_image": false,
+            "parallax_alt": "",
+            "main_title": "PROPERTY DEVELOPMENT",
+            "main_subtitle": "Building value, together.",
+            "feature_subhead": "Strategic & Aligned Growth",
+            "feature_body": "<p>We focus on disciplined growth through aligned capital, clear execution, and partnerships built on transparency—from early vision through delivery.</p>",
+            "feature_image": false,
+            "feature_image_alt": "",
+            "bottom_left_subhead": "Finding Smart Opportunities",
+            "bottom_left_body": "<p>We target urban infill and emerging neighborhoods where thoughtful density creates lasting value for residents and stakeholders.</p>",
+            "bottom_right_subhead": "Partnerships That Last",
+            "bottom_right_body": "<p>Our work is collaborative by design: we invest alongside partners who share long-term goals and a commitment to quality places.</p>"
+        },
+        "section_2": {
+            "image_side": "left",
+            "panel_style": "transparent",
+            "parallax_image": false,
+            "parallax_alt": "",
+            "main_title": "CONSTRUCTION & DESIGN",
+            "main_subtitle": "Hands-on Execution.",
+            "feature_subhead": "Integrated Expertise from Day One",
+            "feature_body": "<p>From the first sketch to final construction, our integrated team brings deep technical insight and real-world experience. With design, development, and construction working as one, we uncover smarter solutions earlier—unlocking efficiency, reducing risk, speeding up timelines, and maximizing value at every step.</p>",
+            "feature_image": false,
+            "feature_image_alt": "",
+            "bottom_left_subhead": "Design Grounded in Reality",
+            "bottom_left_body": "<p>We don’t just design what looks good—we design what works by starting with the end in mind. Close collaboration between architects, engineers, and builders ensures every idea is constructible, cost-conscious, and aligned with the project’s goals. The result: better, more confident decision making that keeps the project on track.</p>",
+            "bottom_right_subhead": "Trust Built on Transparency",
+            "bottom_right_body": "<p>No guesswork. No hidden costs. We lead with clarity—from early budgets to final closeout—so our teams stay aligned, confident, and in control. Our commitment to accountability and radical transparency reduces uncertainty and builds trust that lasts long after the project is complete.</p>"
+        },
+        "section_3": {
+            "image_side": "right",
+            "panel_style": "muted",
+            "parallax_image": false,
+            "parallax_alt": "",
+            "main_title": "PROPERTY DEVELOPMENT",
+            "main_subtitle": "Building value, together.",
+            "feature_subhead": "Strategic & Aligned Growth",
+            "feature_body": "<p>We focus on disciplined growth through aligned capital, clear execution, and partnerships built on transparency—from early vision through delivery.</p>",
+            "feature_image": false,
+            "feature_image_alt": "",
+            "bottom_left_subhead": "Finding Smart Opportunities",
+            "bottom_left_body": "<p>We target urban infill and emerging neighborhoods where thoughtful density creates lasting value for residents and stakeholders.</p>",
+            "bottom_right_subhead": "Partnerships That Last",
+            "bottom_right_body": "<p>Our work is collaborative by design: we invest alongside partners who share long-term goals and a commitment to quality places.</p>"
+        },
+        "page_intro": {
+            "eyebrow": "",
+            "intro": "<p>Add intro copy in the theme JSON or in the page editor after import.</p>"
+        },
+        "text_block_1": {
+            "content": "",
+            "regular_weight": false
+        },
+        "text_block_2": {
+            "content": "",
+            "regular_weight": false
+        }
+    }
+}

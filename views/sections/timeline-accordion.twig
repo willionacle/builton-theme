@@ -1,0 +1,68 @@
+{#
+  Timeline rows: desktop = floating panel under title; mobile = in-flow accordion (tap trigger).
+  Expects: items[] with year, title, body, image_src, optional image_alt, image_caption.
+#}
+<section class="timeline-accordion" data-timeline-accordion aria-label="{{ section_label|default('Company timeline')|e }}">
+  {% include 'sections/headline-reveal.twig' with headline_reveal_timeline|default({})|merge({'modifier': 'timeline'}) %}
+  <div class="timeline-accordion__inner">
+    {% for row in items|default([]) %}
+      {% set panel_id = 'timeline-panel-' ~ loop.index %}
+      <article
+        class="timeline-accordion__item"
+        data-timeline-item
+      >
+        <div
+          class="timeline-accordion__trigger"
+          data-timeline-trigger
+          role="button"
+          tabindex="0"
+          aria-expanded="false"
+          aria-controls="{{ panel_id }}"
+        >
+          <span class="timeline-accordion__progress" aria-hidden="true"></span>
+          <span class="timeline-accordion__year" data-timeline-year>{{ row.year|default('') }}</span>
+          <div class="timeline-accordion__title-block">
+            <h3 class="timeline-accordion__title" id="timeline-title-{{ loop.index }}">{{ row.title|default('') }}</h3>
+          </div>
+          <span class="timeline-accordion__dots" aria-hidden="true">
+            <span class="timeline-accordion__dot timeline-accordion__dot--left" data-timeline-dot="left"></span>
+            <span class="timeline-accordion__dot timeline-accordion__dot--mid" data-timeline-dot="mid"></span>
+            <span class="timeline-accordion__dot timeline-accordion__dot--right" data-timeline-dot="right"></span>
+          </span>
+        </div>
+        <div
+          class="timeline-accordion__panel"
+          id="{{ panel_id }}"
+          data-timeline-panel
+          role="region"
+          aria-labelledby="timeline-title-{{ loop.index }}"
+          hidden
+        >
+          <div class="timeline-accordion__card">
+            <div class="timeline-accordion__card-text">
+              <p class="timeline-accordion__body" data-timeline-body>{{ row.body|default('') }}</p>
+            </div>
+            {% if row.image_src|default('') %}
+              <figure class="timeline-accordion__figure">
+                <div class="timeline-accordion__img-wrap">
+                  <img
+                    class="timeline-accordion__img"
+                    data-timeline-img
+                    src="{{ row.image_src }}"
+                    alt="{{ row.image_alt|default('') }}"
+                    loading="lazy"
+                    width="320"
+                    height="240"
+                  >
+                </div>
+                {% if row.image_caption|default('') %}
+                  <figcaption class="timeline-accordion__caption">{{ row.image_caption }}</figcaption>
+                {% endif %}
+              </figure>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>

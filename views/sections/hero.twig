@@ -1,0 +1,79 @@
+{#
+  Reusable hero section.
+  Expects: subheading, headline_lines (array of lines; each line = array of { word, accent? }),
+           headline_aria_label, marquee_images (array of { url, title }).
+  Meta bar (cities + live times + tagline) is hardcoded in this template.
+#}
+<section class="hero">
+  <div class="hero__inner">
+    {% if subheading|default('') %}
+      <p class="hero__subheading">{{ subheading }}</p>
+    {% endif %}
+    {% if headline_lines|default([])|length > 0 %}
+      <h1 class="hero__headline" aria-label="{{ headline_aria_label|default('') }}">
+        {% for line in headline_lines %}
+          <span class="hero__headline-line">
+            {% for item in line %}
+              {% if item.accent is defined and item.accent %}
+                <span class="hero__headline-slant" data-hero-accent><span class="hero__headline-word">{{ item.word }}</span></span>
+              {% else %}
+                <span class="hero__headline-word">{{ item.word }}</span>
+              {% endif %}
+              {% if not loop.last %} {% endif %}
+            {% endfor %}
+          </span>
+        {% endfor %}
+      </h1>
+    {% endif %}
+  </div>
+  <div class="hero__bottom-wrap">
+    <div class="hero__bottom">
+      <div class="hero__meta">
+        <div class="hero__meta-block hero__meta-block--left">
+          <span class="hero__meta-text is-area">{{ __( 'Manila, PH', 'builton' ) }}</span>
+          <span class="hero__meta-text is-time" data-hero-clock data-timezone="Asia/Manila" aria-live="polite"></span>
+        </div>
+        <div class="hero__meta-block hero__meta-block--center">
+          <span class="hero__meta-text">{{ __( 'Builton Since 2019', 'builton' ) }}</span>
+        </div>
+        <div class="hero__meta-block hero__meta-block--right">
+          <span class="hero__meta-text is-area">{{ __( 'Los Angeles, CA', 'builton' ) }}</span>
+          <span class="hero__meta-text is-time" data-hero-clock data-timezone="America/Los_Angeles" aria-live="polite"></span>
+        </div>
+      </div>
+      {% set images = marquee_images|default([]) %}
+      {% if images|length > 0 %}
+        <div class="hero__marquee" aria-hidden="true" data-hero-marquee>
+          <div class="hero__marquee-wrapper">
+            <div class="hero__marquee-inner">
+              <div class="hero__marquee-track">
+                {% for item in images %}
+                  <span class="hero__marquee-image-wrap" data-hero-marquee-item>
+                    <span class="hero__marquee-image-clip">
+                      <img class="hero__marquee-image" src="{{ item.url }}" alt="" loading="lazy" width="600" height="450">
+                    </span>
+                    {% if item.title|default('') %}
+                      <span class="hero__marquee-title">{{ item.title }}</span>
+                    {% endif %}
+                  </span>
+                {% endfor %}
+              </div>
+              <div class="hero__marquee-track">
+                {% for item in images %}
+                  <span class="hero__marquee-image-wrap" data-hero-marquee-item>
+                    <span class="hero__marquee-image-clip">
+                      <img class="hero__marquee-image" src="{{ item.url }}" alt="" loading="lazy" width="600" height="450">
+                    </span>
+                    {% if item.title|default('') %}
+                      <span class="hero__marquee-title">{{ item.title }}</span>
+                    {% endif %}
+                  </span>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

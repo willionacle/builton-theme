@@ -1,0 +1,18 @@
+{#
+  Reusable centered text block: narrow column, sans, light background. No animation.
+  Expects: content (string, HTML allowed for line breaks), optional tag (wrapper element, default section).
+  Optional: regular_weight (bool) — when true, applies text-block--regular (font-weight 400 vs default 500).
+  ACF: map content from WYSIWYG; Typography toggle → regular_weight.
+#}
+{% set tag = tag|default('section') %}
+{% set regular_weight = regular_weight|default(false) %}
+{% set modifier = modifier|default('') %}
+<{{ tag }} class="text-block{{ regular_weight ? ' text-block--regular' : '' }}{{ modifier ? ' text-block--' ~ modifier : '' }}">
+  <div class="text-block__inner">
+    {% if content|default('') %}
+      <div class="text-block__content">
+        {{ content|raw }}
+      </div>
+    {% endif %}
+  </div>
+</{{ tag }}>

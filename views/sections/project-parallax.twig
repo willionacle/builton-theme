@@ -1,0 +1,20 @@
+{#
+  Project hero: full-width parallax image.
+  Expects: parallax_image (null|{url,alt,width,height}).
+#}
+{% set hero = parallax_image|default(null) %}
+{% if hero and hero.url|default('') %}
+  <div class="project-parallax" data-wwd-parallax>
+    <div class="project-parallax__inner" data-wwd-parallax-inner>
+      <img
+        class="project-parallax__img"
+        src="{{ hero.url }}"
+        alt="{{ hero.alt|default('')|e('html_attr') }}"
+        {% if hero.width|default(0) > 0 %}width="{{ hero.width }}"{% endif %}
+        {% if hero.height|default(0) > 0 %}height="{{ hero.height }}"{% endif %}
+        loading="eager"
+        decoding="async"
+      >
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,17 @@
+{
+    "name": "builton/theme",
+    "description": "Built-On Timber v2 theme",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "timber/timber": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Builton\\": "src/php/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}

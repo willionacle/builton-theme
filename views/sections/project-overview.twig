@@ -1,0 +1,43 @@
+{#
+  Project overview: table (left) + body copy (right).
+  Expects: rows[] with type (simple|partners), label, value, partners[{name,role}], body (HTML).
+#}
+{% set table_rows = rows|default([]) %}
+{% if table_rows|length > 0 or body|default('') %}
+<section class="project-overview" aria-label="{{ __( 'Project overview', 'builton' ) }}">
+  <div class="project-overview__inner">
+    {% if table_rows|length > 0 %}
+      <div class="project-overview__table-wrap">
+        <table class="project-overview__table">
+          <tbody>
+            {% for row in table_rows %}
+              <tr class="project-overview__row project-overview__row--{{ row.type|default('simple') }}">
+                <th scope="row" class="project-overview__label">{{ row.label|default('') }}</th>
+                <td class="project-overview__value">
+                  {% if row.type|default('simple') == 'partners' and row.partners|default([])|length > 0 %}
+                    <ul class="project-overview__partners">
+                      {% for partner in row.partners %}
+                        <li class="project-overview__partner">
+                          <span class="project-overview__partner-name">{{ partner.name|default('') }}</span>
+                          <span class="project-overview__partner-role">{{ partner.role|default('') }}</span>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    {{ row.value|default('')|nl2br }}
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+    {% if body|default('') %}
+      <div class="project-overview__body">
+        {{ body|raw }}
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endif %}

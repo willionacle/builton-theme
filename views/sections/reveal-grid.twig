@@ -1,0 +1,25 @@
+{#
+  Reusable section: 5 text cards + 2 images in a grid. Scroll-based image scale (0→1) and content reveal (left→down→right, one by one).
+  Desktop: 3×3 grid. Mobile: vertical stack.
+  Expects: items (array of 7: type 'text' with title/content, or type 'image' with src/alt). Order: 1,2=text, 3,4=image, 5,6,7=text.
+  ACF: repeater or flexible content mapping to items.
+#}
+{% set tag = tag|default('section') %}
+<{{ tag }} class="reveal-grid" data-reveal-grid>
+  <div class="reveal-grid__inner">
+    {% for item in items|default([]) %}
+      {% if item.type == 'text' %}
+        <div class="reveal-grid__item reveal-grid__card" data-reveal-item>
+          <h3 class="reveal-grid__title">{{ item.title|default('') }}</h3>
+          <div class="reveal-grid__content">{{ item.content|default('')|raw }}</div>
+        </div>
+      {% elseif item.type == 'image' %}
+        <div class="reveal-grid__item reveal-grid__media" data-reveal-item data-reveal-image>
+          <div class="reveal-grid__media-inner">
+            <img class="reveal-grid__img" src="{{ item.src|default('') }}" alt="{{ item.alt|default('') }}" loading="lazy">
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</{{ tag }}>

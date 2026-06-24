@@ -1,0 +1,37 @@
+{#
+  Project gallery carousel: ~2.5 slides visible on desktop, dot nav bottom-left.
+  Expects: slides[] with {url, alt, width, height}.
+#}
+{% set gallery_slides = slides|default([]) %}
+{% if gallery_slides|length > 0 %}
+<section class="project-gallery" data-project-gallery aria-label="{{ __( 'Project gallery', 'builton' ) }}">
+  <div class="project-gallery__viewport">
+    <div class="project-gallery__track" data-project-gallery-track>
+      {% for slide in gallery_slides %}
+        <figure class="project-gallery__slide" data-project-gallery-slide>
+          <img
+            class="project-gallery__img"
+            src="{{ slide.url }}"
+            alt="{{ slide.alt|default('')|e('html_attr') }}"
+            loading="lazy"
+            decoding="async"
+          >
+        </figure>
+      {% endfor %}
+    </div>
+  </div>
+  {% if gallery_slides|length > 1 %}
+    <nav class="project-gallery__nav" aria-label="{{ __( 'Gallery pagination', 'builton' ) }}" data-project-gallery-dots>
+      {% for slide in gallery_slides %}
+        <button
+          type="button"
+          class="project-gallery__dot{{ loop.first ? ' is-active' : '' }}"
+          data-project-gallery-dot="{{ loop.index0 }}"
+          aria-label="{{ __( 'Go to slide', 'builton' ) }} {{ loop.index }}"
+          aria-current="{{ loop.first ? 'true' : 'false' }}"
+        ></button>
+      {% endfor %}
+    </nav>
+  {% endif %}
+</section>
+{% endif %}

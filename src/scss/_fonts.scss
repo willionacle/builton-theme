@@ -1,0 +1,32 @@
+// Shared @font-face rules for the Contact and Team sections (Tandem Sohne /
+// Tandem Season Serif). Deduplicated here since contact.css, contact-form.css,
+// and team.css all independently declared the same three faces.
+//
+// No 700-weight Sohne face: that asset (TestSöhne-Kräftig.otf) 403s on
+// Webflow's CDN regardless of referer — dead, not just hotlink-protected.
+// Left out rather than pointed at a broken URL; the CSS font-matching
+// algorithm resolves font-weight: 700 requests to the 800 face below instead
+// of falling through to the Arial/sans-serif stack.
+@font-face {
+  font-family: 'Tandem Sohne';
+  src: url('https://cdn.prod.website-files.com/688b2b7f61d51fc0f60ed9e2/68b027b0e8d3ada73a438bbc_soehne-web-buch.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tandem Sohne';
+  src: url('https://cdn.prod.website-files.com/688b2b7f61d51fc0f60ed9e2/68a6f057b33cd4ecbc79c85b_soehne-web-halbfett.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tandem Season Serif';
+  src: url('https://cdn.prod.website-files.com/688b2b7f61d51fc0f60ed9e2/688b2f4d3b476e3b54ac601e_SeasonSerifTRIAL-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

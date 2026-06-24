@@ -1,0 +1,12 @@
+/*
+Theme Name: Built-On
+Theme URI: https://github.com/example/builton
+Author: Built-On
+Description: Timber v2 theme with Vite, Sass, and GSAP.
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: builton
+*/
+
+/* Base styles are built from src/scss/main.scss via Vite. */

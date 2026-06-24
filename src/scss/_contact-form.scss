@@ -1,0 +1,297 @@
+// WPForms #wpforms-247 — Tandem contact-form skin
+// Scoped entirely to #wpforms-247. No WPForms HTML/fields/classes/IDs are
+// touched — only CSS (and aria-describedby/order via contact-form.js for the
+// one group heading WPForms Lite has no native way to add).
+// @font-face rules for Tandem Sohne / Tandem Season Serif live in _fonts.scss.
+
+#wpforms-247 {
+  --wpf-ink: #1e1e1c;
+  --wpf-cream: #f7f7f0;
+  --wpf-sage: #c1c9c0;
+  --wpf-muted: #8c8c85;
+  --wpf-ease: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --wpf-font-sans: 'Tandem Sohne', Arial, sans-serif;
+  --wpf-font-serif: 'Tandem Season Serif', Georgia, serif;
+
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 0.7rem 0.75rem 0.75rem;
+  background-color: var(--wpf-ink);
+  border-radius: 0.5rem;
+  font-family: var(--wpf-font-sans);
+  padding-bottom: 62px;
+  margin-top: 67px;
+}
+
+#wpforms-247 * {
+  box-sizing: border-box;
+}
+
+/* WPForms' own theme caps .wpforms-field-medium (used by the name row,
+   email input, and textarea here) at max-width: 60% for a narrower default
+   layout. Lift it so every field spans the full card width. */
+#wpforms-247 .wpforms-field-medium {
+  max-width: 100%;
+}
+
+/* ---------- Form shell ---------- */
+#wpforms-form-247 {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+#wpforms-247 .wpforms-field-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Visual reorder (DOM/tab order is untouched) ---------- */
+#wpforms-247-field_3-container {
+  order: 1;
+  margin-bottom: 2rem;
+}
+
+.wpf-details-label {
+  order: 2;
+  margin-bottom: 0.75rem;
+}
+
+#wpforms-247-field_1-container {
+  order: 3;
+  margin-bottom: 0.5rem;
+  padding: 0;
+}
+
+#wpforms-247-field_2-container {
+  order: 4;
+  margin-bottom: 0.5rem;
+  padding: 0;
+}
+
+/* Anticipates a Phone field added later via the WPForms builder — generic
+   by field type, so no CSS change is needed when it's added. */
+#wpforms-247 .wpforms-field-phone {
+  order: 5;
+}
+
+#wpforms-247 .wpforms-field-container > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Spam-trap fields ----------
+   field_5 already hides itself via inline !important styles — left alone.
+   field_4 has no such inline hiding in the live markup, so without this it
+   would show up as a stray row in the new flex layout. Visually-hidden
+   (not display:none) so anti-spam timing/visibility checks still work. */
+#wpforms-247-field_4-container {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* ---------- Section headings: "Your message" / "Your details" ---------- */
+#wpforms-247 .wpforms-field-textarea > label.wpforms-field-label,
+#wpforms-247 .wpf-details-label {
+  display: block;
+  margin: 0 0 0.5rem;
+  color: var(--wpf-cream);
+  font-family: var(--wpf-font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* ---------- Per-field labels (Name/Email/Phone) — read like placeholder
+   text, not section headings ---------- */
+#wpforms-247 .wpforms-field-name label.wpforms-field-label,
+#wpforms-247 .wpforms-field-email label.wpforms-field-label,
+#wpforms-247 .wpforms-field-phone label.wpforms-field-label,
+#wpforms-247 .wpforms-field-sublabel {
+  display: block;
+  margin: 0;
+  color: var(--wpf-muted);
+  font-family: var(--wpf-font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#wpforms-247 .wpforms-required-label {
+  opacity: 0.6;
+  font-size: 0.85em;
+  margin-left: 0.15em;
+  display: none;
+}
+
+/* The "Name" group legend is redundant once First/Last get their own
+   visible labels styled the same as Email below — kept in the
+   accessibility tree (still announced as the fieldset's group name) but
+   not shown. */
+#wpforms-247 .wpforms-field-name fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+#wpforms-247 .wpforms-field-name legend.wpforms-field-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* ---------- Message textarea ---------- */
+#wpforms-247-field_3-container textarea {
+  display: block;
+  width: 100%;
+  min-height: 15rem;
+  resize: none;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--wpf-cream);
+  font-family: var(--wpf-font-serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  border-radius: 4px;
+}
+
+#wpforms-247-field_3-container textarea::placeholder {
+  color: var(--wpf-muted);
+}
+
+/* ---------- Name / Email / Phone inputs ---------- */
+#wpforms-247 .wpforms-field-name input[type='text'],
+#wpforms-247 .wpforms-field-email input[type='email'],
+#wpforms-247 .wpforms-field-phone input[type='tel'] {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(247, 247, 240, 0.2);
+  padding: 0.5rem 0;
+  color: var(--wpf-cream);
+  font-family: var(--wpf-font-sans);
+  font-size: 0.875rem;
+  border-radius: 0;
+  transition: border-color 0.35s var(--wpf-ease);
+}
+
+#wpforms-247 .wpforms-field-name input[type='text']:focus-visible,
+#wpforms-247 .wpforms-field-email input[type='email']:focus-visible,
+#wpforms-247 .wpforms-field-phone input[type='tel']:focus-visible {
+  border-bottom-color: #fff;
+}
+
+#wpforms-247 .wpforms-field-name input::placeholder,
+#wpforms-247 .wpforms-field-email input::placeholder,
+#wpforms-247 .wpforms-field-phone input::placeholder {
+  color: var(--wpf-muted);
+}
+
+#wpforms-247 .wpforms-field-name .wpforms-field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+/* column-reverse puts the (real) "First"/"Last" sublabel visually above
+   its input — matching the Email field's label-above-input look — without
+   changing the underlying DOM order. margin/padding reset to 0 because
+   WPForms' own default grid CSS adds horizontal padding/margin to these
+   blocks for a side-by-side layout, which otherwise survives the switch
+   to a stacked column and shows up as a stray left indent. */
+#wpforms-247 .wpforms-field-name .wpforms-field-row-block {
+  display: flex;
+  flex-direction: column-reverse;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- Submit button ---------- */
+#wpforms-247 .wpforms-submit-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#wpforms-submit-247 {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  aspect-ratio: 1;
+  background-color: rgba(247, 247, 240, 0.2);
+  border: none;
+  border-radius: 999rem;
+  color: var(--wpf-cream);
+  font-size: 0;
+  line-height: 0;
+  cursor: pointer;
+  transition: background-color 0.35s var(--wpf-ease);
+}
+
+#wpforms-submit-247:hover {
+  background-color: rgba(247, 247, 240, 0.35);
+}
+
+#wpforms-submit-247::before,
+#wpforms-submit-247::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  background-color: currentColor;
+}
+
+#wpforms-submit-247::before {
+  left: calc(50% - 0.65rem);
+  width: 1.1rem;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+#wpforms-submit-247::after {
+  left: calc(50% + 0.25rem);
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: transparent;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+#wpforms-submit-247 .wpforms-submit-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ---------- Focus states (all interactive elements) ---------- */
+#wpforms-247 input:focus-visible,
+#wpforms-247 textarea:focus-visible,
+#wpforms-247 button:focus-visible {
+  outline: 0.125rem solid #4d65ff;
+  outline-offset: 0.125rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px) {
+  #wpforms-247 {
+    padding: 0.5rem 0.5rem 0.6rem;
+    max-width: 95%;
+  }
+
+  #wpforms-247-field_3-container textarea {
+    min-height: 13rem;
+  }
+}

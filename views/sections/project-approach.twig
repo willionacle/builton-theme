@@ -1,0 +1,57 @@
+{#
+  Approach & execution: heading top-left, body vertically centered; media stack right.
+  Expects: heading, body (HTML), media[] with type image|video.
+#}
+{% set media_items = media|default([]) %}
+{% set heading_id = heading_id|default('project-approach-heading') %}
+{% if heading|default('') or body|default('') or media_items|length > 0 %}
+<section class="project-approach" data-project-approach{% if heading|default('') %} aria-labelledby="{{ heading_id }}"{% endif %}>
+  <div class="project-approach__inner">
+    <div class="project-approach__col project-approach__col--text">
+      {% if heading|default('') %}
+        <h2 id="{{ heading_id }}" class="project-approach__heading">{{ heading }}</h2>
+      {% endif %}
+      {% if body|default('') %}
+        <div class="project-approach__body">
+          {{ body|raw }}
+        </div>
+      {% endif %}
+    </div>
+    {% if media_items|length > 0 %}
+      <div class="project-approach__col project-approach__col--media">
+        {% for item in media_items %}
+          <figure class="project-approach__media">
+            {% if item.type|default('image') == 'video' and item.video_url|default('') %}
+              <div class="project-approach__video-wrap">
+                <video
+                  class="project-approach__video"
+                  src="{{ item.video_url }}"
+                  {% if item.video_poster|default('') %}poster="{{ item.video_poster }}"{% endif %}
+                  muted
+                  loop
+                  playsinline
+                  aria-label="{{ item.video_label|default('Project video')|e('html_attr') }}"
+                ></video>
+                {% if item.video_label|default('') %}
+                  <span class="project-approach__video-label">{{ item.video_label }}</span>
+                {% endif %}
+                <button type="button" class="project-approach__play" aria-label="{{ __( 'Play video', 'builton' ) }}" data-project-video-play>
+                  <span class="project-approach__play-icon" aria-hidden="true"></span>
+                </button>
+              </div>
+            {% elseif item.image and item.image.url|default('') %}
+              <img
+                class="project-approach__img"
+                src="{{ item.image.url }}"
+                alt="{{ item.image.alt|default('')|e('html_attr') }}"
+                loading="lazy"
+                decoding="async"
+              >
+            {% endif %}
+          </figure>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endif %}

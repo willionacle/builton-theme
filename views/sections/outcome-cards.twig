@@ -1,0 +1,38 @@
+{#
+  Outcome cards section: three cards describing outcomes.
+  Expects: items (array of 3 objects with title, body, number, bg, text_color, subtext_color, image_src, image_alt).
+  Optional: modifier (string) — BEM suffix e.g. front-page → class outcome-cards--front-page.
+  ACF-ready: map fields into items array in controller.
+#}
+{% set tag = tag|default('section') %}
+{% set root_class = 'outcome-cards' %}
+{% if modifier|default('') %}
+  {% set root_class = root_class ~ ' outcome-cards--' ~ modifier %}
+{% endif %}
+<{{ tag }} class="{{ root_class }}" data-outcome-cards>
+  <div class="outcome-cards__inner">
+    {% for item in items|default([]) %}
+      <article class="outcome-card outcome-card--{{ loop.index }}">
+        <div class="outcome-card__body">
+          <div class="outcome-card__text">
+            <h3 class="outcome-card__title">{{ item.title|default('') }}</h3>
+            {% if item.body is defined %}
+              <p class="outcome-card__copy">{{ item.body }}</p>
+            {% endif %}
+          </div>
+          <div class="outcome-card__image">
+            {% if item.image_src is defined and item.image_src %}
+              <img src="{{ item.image_src }}" alt="{{ item.image_alt|default('') }}" loading="lazy">
+            {% endif %}
+          </div>
+        </div>
+        <div class="outcome-card__footer">
+          {% if item.number is defined %}
+            <span class="outcome-card__number">{{ item.number }}</span>
+          {% endif %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</{{ tag }}>
+

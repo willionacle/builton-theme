@@ -1,0 +1,12 @@
+// Footer brand override for the r1c3 footer cell: smaller uppercase sans
+// instead of the default Fraunces serif brand treatment (see
+// .footer-grid__brand in main.scss). More specific selector, so it wins on
+// the shared properties regardless of import order.
+.footer-grid__cell--r1c3 .footer-grid__brand {
+  margin: 0 0 0.75rem;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

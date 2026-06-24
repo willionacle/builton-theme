@@ -1,0 +1,58 @@
+{#
+  Project FAQ accordion (Q:/A: layout, + / × toggles).
+  Expects: heading, items[] with question, answer (HTML).
+#}
+{% set faq_list = items|default([]) %}
+{% set id_prefix = id_prefix|default('project-faq') %}
+{% set heading_id = heading_id|default(id_prefix ~ '-heading') %}
+{% if heading|default('') or faq_list|length > 0 %}
+<section class="project-faq" data-project-faq{% if heading|default('') %} aria-labelledby="{{ heading_id }}"{% endif %}>
+  <div class="project-faq__inner">
+    {% if heading|default('') %}
+      <h2 id="{{ heading_id }}" class="project-faq__heading">{{ heading }}</h2>
+    {% endif %}
+    {% if faq_list|length > 0 %}
+      <div class="project-faq__list">
+        {% for item in faq_list %}
+          {% set panel_id = id_prefix ~ '-panel-' ~ loop.index %}
+          <article class="project-faq__item{{ loop.first ? ' is-open' : '' }}" data-project-faq-item>
+            <div class="project-faq__question-row">
+              <button
+                type="button"
+                class="project-faq__trigger"
+                data-project-faq-trigger
+                aria-expanded="{{ loop.first ? 'true' : 'false' }}"
+                aria-controls="{{ panel_id }}"
+              >
+                <span class="project-faq__q-mark" aria-hidden="true">Q:</span>
+                <span class="project-faq__question">{{ item.question|default('') }}</span>
+                <span class="project-faq__toggle" aria-hidden="true">
+                  <span class="project-faq__toggle-icon project-faq__toggle-icon--open"></span>
+                  <span class="project-faq__toggle-icon project-faq__toggle-icon--close"></span>
+                </span>
+              </button>
+            </div>
+            <div
+              id="{{ panel_id }}"
+              class="project-faq__panel"
+              data-project-faq-panel
+              role="region"
+              {% if not loop.first %}hidden{% endif %}
+            >
+              <div class="project-faq__answer-row">
+                <span class="project-faq__a-mark" aria-hidden="true">A:</span>
+                <div class="project-faq__answer">
+                  {{ item.answer|default('')|raw }}
+                </div>
+              </div>
+            </div>
+            {% if not loop.last %}
+              <hr class="project-faq__divider" aria-hidden="true">
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endif %}

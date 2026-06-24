@@ -1,0 +1,36 @@
+{% extends "base.twig" %}
+
+{% block content %}
+  <main class="site-main page-project">
+    {% if page_heading.words|default([])|length > 0 %}
+      {% include 'sections/headline-reveal.twig' with {
+        words: page_heading.words,
+        aria_label: page_heading.aria_label|default(''),
+        tag: 'h1',
+        modifier: 'project-portfolio-hero',
+        fit_base_vw: 14,
+        heading_id: 'project-portfolio-heading'
+      } %}
+    {% endif %}
+    {% for project in projects|default([]) %}
+      <article class="single-project page-project__item">
+        {% include 'sections/project-parallax.twig' with project.hero|default({}) %}
+        {% include 'sections/project-header.twig' with project.header|default({})|merge({ heading_id: 'project-' ~ loop.index ~ '-title' }) %}
+        {% include 'sections/project-overview.twig' with project.overview|default({}) %}
+        {% include 'sections/project-rule.twig' %}
+        {% include 'sections/project-approach.twig' with project.approach|default({})|merge({ heading_id: 'project-' ~ loop.index ~ '-approach-heading' }) %}
+        {% include 'sections/project-rule.twig' %}
+        {% include 'sections/project-gallery-carousel.twig' with project.gallery|default({}) %}
+        {% include 'sections/project-rule.twig' %}
+        {% include 'sections/project-faq.twig' with project.faq|default({})|merge({ id_prefix: 'project-' ~ loop.index ~ '-faq' }) %}
+      </article>
+    {% else %}
+      {% if post and post.content %}
+        <div class="page-project__content entry-content">
+          {{ post.content }}
+        </div>
+      {% endif %}
+    {% endfor %}
+    {% include 'sections/explore-dual.twig' with explore_dual|default({}) %}
+  </main>
+{% endblock %}

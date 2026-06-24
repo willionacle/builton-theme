@@ -1,0 +1,424 @@
+{
+    "schema_version": 1,
+    "target": {
+        "type": "front_page",
+        "post_id": 6
+    },
+    "exported_at": "2026-03-23T23:35:33+00:00",
+    "fields": {
+        "hero": {
+            "subheading": "Residential & Commercial • Design-Build, Fit-outs & Renovations",
+            "headline_aria_label": "Finishing your home should feel like an upgrade — NOT DRAMA.",
+            "headline_lines": [
+                {
+                    "words": [
+                        {
+                            "word": "Finishing",
+                            "accent": false
+                        },
+                        {
+                            "word": "your",
+                            "accent": false
+                        },
+                        {
+                            "word": "home",
+                            "accent": true
+                        },
+                        {
+                            "word": "should",
+                            "accent": false
+                        }
+                    ]
+                },
+                {
+                    "words": [
+                        {
+                            "word": "feel",
+                            "accent": false
+                        },
+                        {
+                            "word": "like",
+                            "accent": false
+                        },
+                        {
+                            "word": "an",
+                            "accent": false
+                        },
+                        {
+                            "word": "upgrade",
+                            "accent": true
+                        }
+                    ]
+                },
+                {
+                    "words": [
+                        {
+                            "word": "—",
+                            "accent": false
+                        },
+                        {
+                            "word": "NOT",
+                            "accent": false
+                        },
+                        {
+                            "word": "DRAMA.",
+                            "accent": false
+                        }
+                    ]
+                }
+            ],
+            "marquee_images": [
+                "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Abacan-Bulacan-03-1-scaled.webp",
+                "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Abacan-Bulacan-05-1-scaled.webp",
+                "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Abacan-Bulacan-09-1-scaled.webp",
+                "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Abacan-Bulacan-10-1-scaled.webp",
+                "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Abacan-Bulacan-11-1-scaled.webp",
+                "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Abacan-Bulacan-12-1-scaled.webp",
+                "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Abacan-Bulacan-12-scaled.webp",
+                "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Abacan-Bulacan-11-scaled.webp",
+                "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Abacan-Bulacan-10-scaled.webp",
+                "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Abacan-Bulacan-09-scaled.webp",
+                "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Abacan-Bulacan-07-scaled.webp",
+                "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Abacan-Bulacan-08-scaled.webp"
+            ]
+        },
+        "headline_reveal_1": {
+            "aria_label": "Built together",
+            "tag": "h2",
+            "words": [
+                {
+                    "text": "BUILT"
+                },
+                {
+                    "text": "FOR"
+                },
+                {
+                    "text": "TURNOVER"
+                }
+            ]
+        },
+        "text_block_1": {
+            "content": "<p>At Builton, we deliver high-rise condo and office fit-outs—plus residential design-build and renovations—across Metro Manila. We plan around tower rules, permits, and work windows where required, lock scope early, and manage execution under one PM-led team. The result is design-true delivery, admin-compliant execution, and a predictable path from start to handover.</p>\n",
+            "regular_weight": false
+        },
+        "video_block": {
+            "video_src": "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Prisma.mp4",
+            "poster_src": false,
+            "aria_label": "Background video"
+        },
+        "reveal_grid": {
+            "items": [
+                {
+                    "type": "text",
+                    "title": "Tower-first planning",
+                    "content": "<p>We confirm tower rules, permits, work windows, and elevator schedules before mobilizing—so the plan holds in real tower conditions.</p>\n",
+                    "image_src": false,
+                    "alt": ""
+                },
+                {
+                    "type": "text",
+                    "title": "Audit before we build",
+                    "content": "<p>Our turnover Assurance audit maps defects, admin requirements, and realistic scope, timeline, and budget range—before commitments.</p>\n",
+                    "image_src": false,
+                    "alt": ""
+                },
+                {
+                    "type": "image",
+                    "title": "",
+                    "content": "",
+                    "image_src": "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Section-3-02.webp",
+                    "alt": "Team member in a hard hat reviewing marble wall slabs with documents"
+                },
+                {
+                    "type": "text",
+                    "title": "Scope locked early",
+                    "content": "<p>Clear decision gates. Variations are documented and approved before work starts, protecting cost and timeline.</p>\n",
+                    "image_src": false,
+                    "alt": ""
+                },
+                {
+                    "type": "image",
+                    "title": "",
+                    "content": "",
+                    "image_src": "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-Section-3-01.webp",
+                    "alt": "Team member in a hard hat working on architectural blueprints at a desk"
+                },
+                {
+                    "type": "text",
+                    "title": "QA/QC hold points",
+                    "content": "<p>Key trades are inspected before they&#8217;re covered. Photos, checklists, and sign-offs keep quality repeatable.</p>\n",
+                    "image_src": false,
+                    "alt": ""
+                },
+                {
+                    "type": "text",
+                    "title": "Handover + aftercare",
+                    "content": "<p>Clean punch list, documented turnover, and a 12-month workmanship warranty with scheduled aftercare visits.</p>\n",
+                    "image_src": false,
+                    "alt": ""
+                }
+            ]
+        },
+        "headline_reveal_2": {
+            "aria_label": "How we differ",
+            "tag": "h2",
+            "words": [
+                {
+                    "text": "HOW"
+                },
+                {
+                    "text": "WE"
+                },
+                {
+                    "text": "DIFFER"
+                }
+            ]
+        },
+        "text_block_2": {
+            "content": "<p>These 3 outcomes are what we protect on every fit-out — a clear perspective that guides every decision from turnover to handover.</p>\n",
+            "regular_weight": false
+        },
+        "outcome_cards": {
+            "items": [
+                {
+                    "title": "Design-True Delivery",
+                    "body": "What you approve is what we build—details locked early, with QA checkpoints that protect the finish.",
+                    "number": "01",
+                    "image_src": "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Card-01.webp",
+                    "image_alt": "Abstract design icon 1"
+                },
+                {
+                    "title": "Admin-Compliant Execution",
+                    "body": "Permits, tower rules (where applicable), inspections, and handoff are handled before work starts—no stop-work surprises.",
+                    "number": "02",
+                    "image_src": "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Card-02-white.webp",
+                    "image_alt": "Abstract design icon 2"
+                },
+                {
+                    "title": "Predictable Turnover",
+                    "body": "Audit-first scope, clear decision gates, and documented change control to keep cost and timeline steady through handover + aftercare.",
+                    "number": "03",
+                    "image_src": "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Card-03.webp",
+                    "image_alt": "Abstract design icon 3"
+                }
+            ]
+        },
+        "text_block_3": {
+            "content": "<p>What sets Builton apart isn&#8217;t just our scope. It&#8217;s how we show up and how we run every project—with disciplined planning, clear communication, and full accountability.</p>\n<p>We define constraints early, lock scope before building, and inspect key trades before they&#8217;re covered. No drama. No surprises. Just a clean handover and dependable aftercare.</p>\n",
+            "regular_weight": true
+        },
+        "featured_project_1": {
+            "title": "Grand Hyatt Residences - South Tower",
+            "href": "https://ivory-anteater-144221.hostingersite.com/",
+            "cursor_label": "View project",
+            "image_src": "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/LDK-SIGNATURE-W-FURNITURE.webp",
+            "image_alt": "Featured project placeholder"
+        },
+        "headline_reveal_3": {
+            "aria_label": "Full Accountability",
+            "tag": "h2",
+            "words": [
+                {
+                    "text": "FULL"
+                },
+                {
+                    "text": "ACCOUNTABILITY"
+                }
+            ]
+        },
+        "tandem_hub": {
+            "heading": "",
+            "lead": "<p>Builton accountability means we take full ownership of every project we deliver—no shortcuts, no excuses, just disciplined execution from planning to handover.</p>\n<p>Ownership is a mindset. We define constraints early, align scope before construction begins, and inspect key trades before they&#8217;re covered—so cost, quality, and timeline stay steady from start to finish.</p>\n",
+            "bottom_text": "<p>By running design, permits, and build under one PM-led team, we deliver work that is structured, predictable, and built to last.</p>\n",
+            "image_src": false,
+            "spin_degrees": "720"
+        },
+        "featured_project_2": {
+            "title": "BGC + Condo fit-out (Featured)",
+            "href": "https://ivory-anteater-144221.hostingersite.com/",
+            "cursor_label": "View project",
+            "image_src": "https://ivory-anteater-144221.hostingersite.com/wp-content/uploads/2026/03/Builton-BR1-SIGNATURE.webp",
+            "image_alt": "Featured project placeholder"
+        },
+        "timeline_accordion": {
+            "section_label": "Company timeline",
+            "items": [
+                {
+                    "year": "2019",
+                    "title": "The Starting Line",
+                    "body": "From its 2019 start, Builton has completed 40+ builds. With Globalhome’s premium materials, we craft sophisticated residential and office environments.",
+                    "image_src": false,
+                    "image_alt": "",
+                    "image_caption": ""
+                },
+                {
+                    "year": "2020",
+                    "title": "First Signature Project: Alabang Citation Loop",
+                    "body": "We transformed the living spaces into an open, seamless layout with premium finishes and custom wall treatments, including full kitchen works and all bathrooms for refined home statement.",
+                    "image_src": false,
+                    "image_alt": "",
+                    "image_caption": ""
+                },
+                {
+                    "year": "2021",
+                    "title": "High Rise: Book Matched Natural Stone",
+                    "body": "Soaring double-height ceilings and a book matched marble feature wall create grandeur, while floor-to-ceiling windows and warm neutral tones enhance timeless elegance.",
+                    "image_src": false,
+                    "image_alt": "",
+                    "image_caption": ""
+                },
+                {
+                    "year": "2022",
+                    "title": "Residential Expansion: Ayala Alabang Village Dona Ines",
+                    "body": "This grand-scale home and design utilizes Bianco Lasa marble to create a striking focal point. Its flowing, natural pattern is complemented by vertical wood panels and gallery art.",
+                    "image_src": false,
+                    "image_alt": "",
+                    "image_caption": ""
+                },
+                {
+                    "year": "2023",
+                    "title": "Premium Fit-Out: North Grand Hyatt",
+                    "body": "Builton is a premier construction company specializing in high-end condominium fit-outs and renovations. Founded on the principles of integrity, innovation, and excellence, we are committed to transforming our clients’ visions into reality through meticulous craftsmanship and exceptional service.",
+                    "image_src": false,
+                    "image_alt": "",
+                    "image_caption": ""
+                },
+                {
+                    "year": "2024",
+                    "title": "Design-Build Milestone: Celeste Prisma",
+                    "body": "Builton is a premier construction company specializing in high-end condominium fit-outs and renovations. Founded on the principles of integrity, innovation, and excellence, we are committed to transforming our clients’ visions into reality through meticulous craftsmanship and exceptional service.",
+                    "image_src": false,
+                    "image_alt": "",
+                    "image_caption": ""
+                },
+                {
+                    "year": "2025",
+                    "title": "High-Rise Fit-outs scale up",
+                    "body": "Builton is a premier construction company specializing in high-end condominium fit-outs and renovations. Founded on the principles of integrity, innovation, and excellence, we are committed to transforming our clients' visions into reality through meticulous craftsmanship and exceptional service.",
+                    "image_src": false,
+                    "image_alt": "",
+                    "image_caption": ""
+                },
+                {
+                    "year": "2026",
+                    "title": "[Project Name]",
+                    "body": "Builton is a premier construction company specializing in high-end condominium fit-outs and renovations. Founded on the principles of integrity, innovation, and excellence, we are committed to transforming our clients' visions into reality through meticulous craftsmanship and exceptional service.",
+                    "image_src": false,
+                    "image_alt": "",
+                    "image_caption": ""
+                }
+            ]
+        },
+        "explore_dual": {
+            "subheading": "Explore further.",
+            "heading": "We're easy to reach and even easier to work with.",
+            "light_card": {
+                "title": "Explore capabilities",
+                "href": "https://ivory-anteater-144221.hostingersite.com/",
+                "lines": [
+                    {
+                        "text": "Development"
+                    },
+                    {
+                        "text": "Construction & Design"
+                    },
+                    {
+                        "text": "Property Management"
+                    }
+                ],
+                "thumbs": [
+                    {
+                        "src": false,
+                        "alt": ""
+                    },
+                    {
+                        "src": false,
+                        "alt": ""
+                    },
+                    {
+                        "src": false,
+                        "alt": ""
+                    }
+                ]
+            },
+            "leadership": {
+                "title": "Leadership team",
+                "href": "https://ivory-anteater-144221.hostingersite.com/",
+                "portraits": [
+                    {
+                        "src": false,
+                        "alt": "",
+                        "top": "5%",
+                        "left": "54%",
+                        "width": "21%",
+                        "z": "1",
+                        "dim": false,
+                        "hidden": true,
+                        "hx": "0",
+                        "hy": "0"
+                    },
+                    {
+                        "src": false,
+                        "alt": "Team member",
+                        "top": "10%",
+                        "left": "26%",
+                        "width": "31%",
+                        "z": "5",
+                        "dim": false,
+                        "hidden": false,
+                        "hx": "-16",
+                        "hy": "12"
+                    },
+                    {
+                        "src": false,
+                        "alt": "Team member",
+                        "top": "48%",
+                        "left": "48%",
+                        "width": "34%",
+                        "z": "6",
+                        "dim": false,
+                        "hidden": false,
+                        "hx": "18",
+                        "hy": "-14"
+                    },
+                    {
+                        "src": false,
+                        "alt": "Team member",
+                        "top": "34%",
+                        "left": "3%",
+                        "width": "25%",
+                        "z": "4",
+                        "dim": true,
+                        "hidden": false,
+                        "hx": "20",
+                        "hy": "-8"
+                    },
+                    {
+                        "src": false,
+                        "alt": "Team member",
+                        "top": "60%",
+                        "left": "29%",
+                        "width": "28%",
+                        "z": "5",
+                        "dim": false,
+                        "hidden": false,
+                        "hx": "-10",
+                        "hy": "-16"
+                    },
+                    {
+                        "src": false,
+                        "alt": "Team member",
+                        "top": "18%",
+                        "left": "70%",
+                        "width": "26%",
+                        "z": "4",
+                        "dim": true,
+                        "hidden": false,
+                        "hx": "-18",
+                        "hy": "10"
+                    }
+                ]
+            }
+        }
+    }
+}

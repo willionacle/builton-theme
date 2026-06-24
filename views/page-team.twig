@@ -1,0 +1,65 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<section class="builton-team-wrapper" id="builton-team">
+
+  <!-- ============ Page title ============ -->
+  <div class="builton-team-title">
+    <h1 class="builton-team-title__heading">
+      <span class="builton-team-title__mask">
+        <span class="builton-team-title__word">{{ post.title }}</span>
+      </span>
+    </h1>
+  </div>
+
+  <!-- ============ Team grid ============ -->
+  <div class="builton-team-grid-section">
+    <div class="builton-team-grid">
+      
+      {# Loop through all team members provided by the CPT query #}
+      {% for member in team_members %}
+      
+        {# Before the 3rd member (index 2), insert the intro paragraph #}
+        {% if loop.index == 3 or (loop.last and loop.length < 3) %}
+          <div class="builton-team-intro">
+            {{ intro_text }}
+          </div>
+          <div class="builton-team-spacer" aria-hidden="true"></div>
+        {% endif %}
+
+        <article class="builton-team-card">
+          <div class="builton-team-card__photo">
+            <img class="builton-team-card__img builton-team-card__img--hover" loading="eager" alt="{{ member.meta('member_name') }}" src="{{ member.meta('member_hover_img').url }}" />
+            <img class="builton-team-card__img builton-team-card__img--base" loading="lazy" alt="{{ member.meta('member_name') }}" src="{{ member.meta('member_base_image').url }}" />
+          </div>
+          <div class="builton-team-card__caption" role="button" tabindex="0" aria-expanded="false" aria-controls="builton-team-bio-{{ member.id }}">
+            <div class="builton-team-card__caption-top">
+              <h2 class="builton-team-card__name">{{ member.meta('member_name') }}</h2>
+              <span class="builton-team-card__dots" aria-hidden="true">
+                <span class="builton-team-card__dots-inner"><span></span><span></span><span></span></span>
+              </span>
+            </div>
+            <p class="builton-team-card__role">{{ member.meta('member_role') }}</p>
+            <p class="builton-team-card__department">{{ member.meta('member_department') }}</p>
+          </div>
+          
+          {# Updated to member_linkedin #}
+          <a class="builton-team-card__badge" href="{{ member.meta('member_linkedin') }}" target="_blank" rel="noopener">
+            <span class="builton-team-card__badge-text">LinkedIn</span>
+            <span class="builton-team-card__badge-arrow" aria-hidden="true"><span class="builton-team-card__badge-arrow-icon"></span></span>
+          </a>
+          
+          <div class="builton-team-card__bio" id="builton-team-bio-{{ member.id }}">
+            {{ member.meta('member_bio') }}
+          </div>
+          <div class="builton-team-card__divider"></div>
+        </article>
+      {% endfor %}
+
+    </div>
+  </div>
+
+  {% include 'sections/explore-dual.twig' with explore_dual|default({}) %}
+
+</section>
+{% endblock %}

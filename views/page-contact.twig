@@ -1,0 +1,69 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<section class="builton-contact-wrapper" id="builton-contact">
+
+  <!-- ============ Page title ============ -->
+  <div class="builton-contact-title">
+    <h1 class="builton-contact-title__heading"><span class="builton-contact-title__mask"><span class="builton-contact-title__word">{{ post.title }}</span></span></h1>
+    <div class="builton-contact-subheader">
+      <h2 class="builton-contact-subheader__heading">{{ subheader_heading }}</h2>
+      <p class="builton-contact-subheader__text">{{ subheader_text }}</p>
+    </div>
+  </div>
+
+  <!-- ============ WPForms Integration ============ -->
+  <div class="builton-contact-form-wrapper">
+    {{ form_shortcode | shortcode }}
+  </div>
+
+  <!-- ============ Quick contact info ============ -->
+  <div class="builton-contact-info">
+    <div class="builton-contact-info__row">
+      <button type="button" class="builton-contact-info__text" data-copy="{{ contact_email }}">{{ contact_email }}</button>
+    </div>
+    <div class="builton-contact-info__row">
+      <button type="button" class="builton-contact-info__text" data-copy="{{ contact_phone }}">{{ contact_phone }}</button>
+    </div>
+    <span class="builton-contact-info__copied" aria-live="polite"></span>
+  </div>
+
+  <!-- ============ Offices ============ -->
+  <div class="builton-contact-address">
+    <p class="builton-contact-address__heading">{{ offices_intro }}</p>
+
+    <div class="builton-contact-offices">
+      <h2 class="builton-contact-offices__heading">Offices</h2>
+      <div class="builton-contact-offices__grid">
+
+        <!-- Office 1 -->
+        <div class="builton-contact-offices__block builton-contact-offices__block--static">
+          <div class="builton-contact-offices__image-wrap">
+            <img class="builton-contact-offices__image" loading="lazy" alt="{{ office_1_image.alt }}" src="{{ office_1_image.url }}" />
+          </div>
+          <div class="builton-contact-offices__meta">
+            <span class="builton-contact-offices__area">{{ office_1_name }}</span>
+            <span class="builton-contact-offices__time" data-builton-tz="{{ office_1_timezone }}">&ndash;&ndash;:&ndash;&ndash;</span>
+          </div>
+        </div>
+
+        <!-- Office 2 -->
+        <a class="builton-contact-offices__block builton-contact-offices__block--link" href="{{ office_2_link }}" target="_blank" rel="noopener" aria-label="View the {{ office_2_name }} office on Google Maps">
+          <div class="builton-contact-offices__image-wrap">
+            <img class="builton-contact-offices__image" loading="lazy" alt="{{ office_2_image.alt }}" src="{{ office_2_image.url }}" />
+          </div>
+          <div class="builton-contact-offices__info">
+            <div class="builton-contact-offices__meta">
+              <span class="builton-contact-offices__area">{{ office_2_name }}</span>
+              <span class="builton-contact-offices__time" data-builton-tz="{{ office_2_timezone }}">&ndash;&ndash;:&ndash;&ndash;</span>
+            </div>
+            <address class="builton-contact-offices__street">{{ office_2_address }}</address>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+{% endblock %}

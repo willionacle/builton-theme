@@ -1,0 +1,27 @@
+{#
+  Reusable full-width headline section: per-word slide-up reveal (overflow-hidden container).
+  Expects: words (array of strings), optional aria_label, optional tag (heading level, default h2).
+  Optional: modifier (string) — BEM suffix e.g. what-we-do-hero → class headline-reveal--what-we-do-hero.
+  Optional: fit_base_vw (number) — data-headline-fit-base-vw for JS viewport fitting (default 10 in JS if omitted).
+  Optional: heading_id (string) — set on the heading element when tag is h1 (page landmark).
+  ACF: map words from repeater (text rows) or split a phrase in PHP; aria_label, tag from fields.
+#}
+{% set tag = tag|default('h2') %}
+{% set root_class = 'headline-reveal' %}
+{% if modifier|default('') %}
+  {% set root_class = root_class ~ ' headline-reveal--' ~ modifier %}
+{% endif %}
+<section class="{{ root_class }}"{% if fit_base_vw is defined %} data-headline-fit-base-vw="{{ fit_base_vw }}"{% endif %}>
+  <div class="headline-reveal__inner">
+    {% if words|default([])|length > 0 %}
+      <{{ tag }} class="headline-reveal__heading"{% if tag == 'h1' and heading_id|default('') %} id="{{ heading_id }}"{% endif %}{% if aria_label|default('') %} aria-label="{{ aria_label }}"{% endif %}>
+        {% for word in words %}
+          <span class="headline-reveal__word-wrap">
+            <span class="headline-reveal__word">{{ word }}</span>
+          </span>
+          {% if not loop.last %} {% endif %}
+        {% endfor %}
+      </{{ tag }}>
+    {% endif %}
+  </div>
+</section>

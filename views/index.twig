@@ -1,0 +1,16 @@
+{% extends "base.twig" %}
+
+{% block content %}
+  <main class="site-main">
+    {% if posts %}
+      {% for post in posts %}
+        <article>
+          <h2><a href="{{ post.link }}">{{ post.title }}</a></h2>
+          {{ post.content }}
+        </article>
+      {% endfor %}
+    {% else %}
+      <p data-gsap-demo>Built-On theme. Add content or use the loop in your Twig templates.</p>
+    {% endif %}
+  </main>
+{% endblock %}

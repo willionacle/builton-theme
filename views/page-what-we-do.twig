@@ -1,0 +1,21 @@
+{% extends "base.twig" %}
+
+{% block content %}
+  <main class="site-main page-what-we-do">
+    {% if headline_reveal_hero.words|default([])|length > 0 %}
+      {% include 'sections/headline-reveal.twig' with headline_reveal_hero %}
+    {% endif %}
+    {% include 'sections/property-development.twig' with section_1|default({})|merge({ heading_id: 'wwd-section-1-heading' }) %}
+    {% include 'sections/property-development.twig' with section_2|default({})|merge({ heading_id: 'wwd-section-2-heading' }) %}
+    {% include 'sections/property-development.twig' with section_3|default({})|merge({ heading_id: 'wwd-section-3-heading' }) %}
+    {% include 'sections/page-intro.twig' with page_intro|default({}) %}
+    {% include 'sections/text-block.twig' with text_block_1|default({}) %}
+    {% include 'sections/text-block.twig' with text_block_2|default({}) %}
+    {% include 'sections/explore-dual.twig' with explore_dual|default({}) %}
+    {% if post and post.content %}
+      <div class="page-what-we-do__content entry-content">
+        {{ post.content }}
+      </div>
+    {% endif %}
+  </main>
+{% endblock %}

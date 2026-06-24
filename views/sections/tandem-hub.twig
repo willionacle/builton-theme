@@ -1,0 +1,48 @@
+{#
+  Full-width hub: SVG + center disk; lead and bottom text overlay the graphic (same layer stack).
+  Expects: lead, bottom_text, image_src; optional heading (h2), image_alt, spin_degrees (default 720). Lead may contain multiple &lt;p&gt;; first paragraph uses serif styling.
+  ACF-ready: pass from controller.
+#}
+{% set spin_degrees = spin_degrees|default(720) %}
+<section class="tandem-hub" data-tandem-hub data-tandem-hub-spin-max="{{ spin_degrees }}" aria-label="{{ heading|default('Ownership')|striptags|e }}">
+  <div class="tandem-hub__inner">
+    <div class="tandem-hub__graphic">
+      {% if image_src|default('') %}
+        <div class="tandem-hub__disk" aria-hidden="true">
+          <div class="tandem-hub__disk-clip">
+            <div class="tandem-hub__disk-spin" data-tandem-hub-spin>
+              <img
+                class="tandem-hub__disk-img"
+                src="{{ image_src }}"
+                alt=""
+                loading="lazy"
+                width="400"
+                height="400"
+              >
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      <svg class="tandem-hub__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1418 676" fill="none" aria-hidden="true">
+        <circle cx="709" cy="341" r="107.5" stroke="currentColor"/>
+        <path d="M814 318C1013.67 307.067 1417 228.161 1417 0" stroke="currentColor"/>
+        <path d="M604 318C404.333 307.067 1 228.161 1 0" stroke="currentColor"/>
+        <path d="M815 358C1014.67 368.933 1417 447.839 1417 676" stroke="currentColor"/>
+        <path d="M603 358C403.333 368.933 1 447.839 1 676" stroke="currentColor"/>
+      </svg>
+      {% if heading|default('') or lead|default('') %}
+        <header class="tandem-hub__intro tandem-hub__intro--overlay">
+          {% if heading|default('') %}
+            <h2 class="tandem-hub__heading">{{ heading|raw }}</h2>
+          {% endif %}
+          {% if lead|default('') %}
+            <div class="tandem-hub__lead">{{ lead|raw }}</div>
+          {% endif %}
+        </header>
+      {% endif %}
+      {% if bottom_text|default('') %}
+        <div class="tandem-hub__footer-text tandem-hub__footer-text--overlay">{{ bottom_text|raw }}</div>
+      {% endif %}
+    </div>
+  </div>
+</section>

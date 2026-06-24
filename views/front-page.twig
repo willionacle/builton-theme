@@ -1,0 +1,30 @@
+{% extends "base.twig" %}
+
+{% block content %}
+  <div class="front-page">
+    {% include 'sections/hero.twig' with hero|default({}) %}
+    {% include 'sections/headline-reveal.twig' with headline_reveal_1|default({}) %}
+    {% include 'sections/text-block.twig' with text_block_1|default({}) %}
+    {% include 'sections/video-block.twig' with video_block|default({}) %}
+    {% include 'sections/reveal-grid.twig' with reveal_grid|default({}) %}
+    {% include 'sections/headline-reveal.twig' with headline_reveal_2|default({})|merge({'modifier': 'front-page-2'}) %}
+    {% include 'sections/text-block.twig' with text_block_2|default({})|merge({'modifier': 'front-page-2'}) %}
+    {% include 'sections/outcome-cards.twig' with outcome_cards|default({})|merge({'modifier': 'front-page'}) %}
+    {% include 'sections/text-block.twig' with text_block_3|default({}) %}
+    {% include 'sections/featured-project.twig' with featured_project_1|default({}) %}
+    {% include 'sections/headline-reveal.twig' with headline_reveal_3|default({})|merge({'modifier': 'front-page-3'}) %}
+    {% include 'sections/tandem-hub.twig' with tandem_hub|default({}) %}
+    {% include 'sections/featured-project.twig' with featured_project_2|default({}) %}
+    {% include 'sections/timeline-accordion.twig' with timeline_accordion|default({}) %}
+    {% include 'sections/explore-dual.twig' with explore_dual|default({}) %}
+
+    {% if post and post.content %}
+      <div class="front-page__content entry-content">
+        {{ post.content }}
+      </div>
+    {% endif %}
+    {% if not post %}
+      <p class="front-page__fallback">Welcome. Set a static front page in Settings → Reading.</p>
+    {% endif %}
+  </div>
+{% endblock %}

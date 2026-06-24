@@ -1,0 +1,22 @@
+{#
+  Reusable section: repeating autoplay video (muted). Fluid layout; video may be clipped.
+  Expects: video_src (URL), optional poster_src, optional tag (wrapper element, default section).
+  ACF: map video_src and poster_src from file or URL fields.
+#}
+{% set tag = tag|default('section') %}
+<{{ tag }} class="video-block">
+  <div class="video-block__inner">
+    {% if video_src|default('') %}
+      <video
+        class="video-block__video"
+        src="{{ video_src }}"
+        {% if poster_src|default('') %}poster="{{ poster_src }}"{% endif %}
+        autoplay
+        muted
+        loop
+        playsinline
+        aria-label="{{ aria_label|default('Background video') }}"
+      ></video>
+    {% endif %}
+  </div>
+</{{ tag }}>

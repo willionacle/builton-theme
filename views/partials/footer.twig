@@ -1,0 +1,117 @@
+{# Site footer: 3×2 grid, 1px borders, arrow links. ACF-ready: replace static strings with fields. #}
+{% macro footer_arrow_svg() %}
+  <span class="footer-grid__arrow-inner" data-footer-arrow-motion>
+    <svg class="footer-grid__arrow-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M3 7h6.5M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+{% endmacro %}
+{% import _self as footer_macros %}
+
+<footer class="site-footer site-footer--grid">
+  <div class="site-footer__inner site-footer__inner--grid">
+    <div class="footer-grid">
+      {# Row 1 — col 1: How we work #}
+      <div class="footer-grid__cell footer-grid__cell--r1c1">
+        <div class="footer-grid__block">
+          <h3 class="footer-grid__heading">How we work</h3>
+          <ul class="footer-grid__list">
+            <li class="footer-grid__list-text">Design-true.</li>
+            <li class="footer-grid__list-text">Admin compliant.</li>
+            <li class="footer-grid__list-text">Predictable Delivery.</li>
+          </ul>
+          <p class="footer-grid__manifesto">We define constraints early, lock scope before construction begins, and inspect key trades before they&rsquo;re covered &mdash; so handover is clean and aftercare is dependable.</p>
+        </div>
+      </div>
+
+      {# Row 1 — col 2: Explore Capabilities #}
+      <div class="footer-grid__cell footer-grid__cell--r1c2">
+        <div class="footer-grid__block">
+          <h3 class="footer-grid__heading">Explore Capabilities</h3>
+          <ul class="footer-grid__list">
+            <li><a href="#" class="footer-grid__link" data-footer-arrow-link><span class="footer-grid__arrow" aria-hidden="true">{{ footer_macros.footer_arrow_svg() }}</span><span>Fit-out</span></a></li>
+            <li><a href="#" class="footer-grid__link" data-footer-arrow-link><span class="footer-grid__arrow" aria-hidden="true">{{ footer_macros.footer_arrow_svg() }}</span><span>Renovation</span></a></li>
+            <li><a href="#" class="footer-grid__link" data-footer-arrow-link><span class="footer-grid__arrow" aria-hidden="true">{{ footer_macros.footer_arrow_svg() }}</span><span>Design &amp; Build</span></a></li>
+          </ul>
+        </div>
+      </div>
+
+      {# Row 1 — col 3: Contact Us #}
+      <div class="footer-grid__cell footer-grid__cell--r1c3">
+        <div class="footer-grid__brand">Contact Us</div>
+        <p class="footer-grid__address">36th St. Park West, Bonifacio Global City, Taguig City, Philippines</p>
+        <div class="footer-grid__contacts">
+          <a href="tel:+639177089257" class="footer-grid__link" data-footer-arrow-link>
+            <span class="footer-grid__arrow" aria-hidden="true">{{ footer_macros.footer_arrow_svg() }}</span>
+            <span>+63 917 708 9257</span>
+          </a>
+          <a href="tel:+639177691203" class="footer-grid__link" data-footer-arrow-link>
+            <span class="footer-grid__arrow" aria-hidden="true">{{ footer_macros.footer_arrow_svg() }}</span>
+            <span>+63 917 769 1203</span>
+          </a>
+          <a href="mailto:inquiry@builton.ph" class="footer-grid__link" data-footer-arrow-link>
+            <span class="footer-grid__arrow" aria-hidden="true">{{ footer_macros.footer_arrow_svg() }}</span>
+            <span>inquiry@builton.ph</span>
+          </a>
+        </div>
+      </div>
+
+      {# Row 2 — col 1 — same site logo as Customizer → Site Identity → Logo #}
+      <div class="footer-grid__cell footer-grid__cell--r2c1">
+        {% if function('has_custom_logo') %}
+          <div class="footer-grid__mark footer-grid__mark--custom">
+            {{ function('get_custom_logo')|raw }}
+          </div>
+        {% else %}
+          <div class="footer-grid__mark footer-grid__mark--fallback">
+            <a href="{{ site.url }}" class="footer-grid__mark-fallback-link" rel="home">{{ site.name }}</a>
+          </div>
+        {% endif %}
+      </div>
+
+      {# Row 2 — col 2: Portfolio #}
+      <div class="footer-grid__cell footer-grid__cell--r2c2">
+        <div class="footer-grid__block">
+          <h3 class="footer-grid__heading">Portfolio</h3>
+          <ul class="footer-grid__list">
+            {% for item in footer_projects|default([]) %}
+              <li><a href="{{ item.href }}" class="footer-grid__link" data-footer-arrow-link><span class="footer-grid__arrow" aria-hidden="true">{{ footer_macros.footer_arrow_svg() }}</span><span>{{ item.title }}</span></a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      {# Row 2 — col 3: Contact form #}
+      <div class="footer-grid__cell footer-grid__cell--r2c3">
+        <h3 class="footer-grid__heading">Write Us</h3>
+        <form class="footer-grid__form" action="#" method="post" aria-label="Contact form">
+          <label class="footer-grid__field">
+            <span class="footer-grid__label">Name</span>
+            <input type="text" name="footer_name" class="footer-grid__input" placeholder="Full Name" autocomplete="name">
+          </label>
+          <label class="footer-grid__field">
+            <span class="footer-grid__label">Email</span>
+            <input type="email" name="footer_email" class="footer-grid__input" placeholder="your@email.com" autocomplete="email">
+          </label>
+          <label class="footer-grid__field">
+            <span class="footer-grid__label">Phone</span>
+            <input type="tel" name="footer_phone" class="footer-grid__input" placeholder="+63" autocomplete="tel">
+          </label>
+          <label class="footer-grid__field">
+            <span class="footer-grid__label">Message</span>
+            <textarea name="footer_message" class="footer-grid__input footer-grid__input--textarea" rows="3" placeholder="Tell us about your project"></textarea>
+          </label>
+          <div class="footer-grid__form-actions">
+            <button type="submit" class="footer-grid__send">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="site-footer__headline">
+    {% include 'sections/headline-reveal.twig' with {
+      words: ['DESIGN', 'BUILD', 'DELIVER'],
+      aria_label: 'Design Build Deliver'
+    } %}
+  </div>
+</footer>

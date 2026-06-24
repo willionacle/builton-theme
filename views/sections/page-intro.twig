@@ -1,0 +1,17 @@
+{#
+  Supporting intro: eyebrow + WYSIWYG body (no primary h1 — use headline-reveal or page title elsewhere).
+#}
+{% set eyebrow = eyebrow|default('') %}
+{% set intro = intro|default('') %}
+<section class="page-intro"{% if eyebrow %} aria-labelledby="page-intro-eyebrow"{% elseif intro %} aria-label="{{ __( 'Introduction', 'builton' ) }}"{% endif %}>
+  <div class="page-intro__inner">
+    {% if eyebrow %}
+      <p id="page-intro-eyebrow" class="page-intro__eyebrow">{{ eyebrow }}</p>
+    {% endif %}
+    {% if intro %}
+      <div class="page-intro__body">
+        {{ intro|raw }}
+      </div>
+    {% endif %}
+  </div>
+</section>
