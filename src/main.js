@@ -157,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const line3 = hamburger.querySelector('.site-header__hamburger-line--3');
   const overlayMenu = overlay.querySelector('.site-header__overlay-menu');
   const overlayLinks = overlayMenu ? overlayMenu.querySelectorAll('a') : [];
+  const overlayClose = overlay.querySelector('.site-header__overlay-close');
 
   let isOpen = false;
 
@@ -214,6 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   overlayLinks.forEach((link) => link.addEventListener('click', closeMenu));
+
+  if (overlayClose) overlayClose.addEventListener('click', closeMenu);
 
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) closeMenu();
@@ -322,6 +325,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const rawBase = parseFloat(section.dataset.headlineFitBaseVw);
     const baseVw = Number.isFinite(rawBase) && rawBase > 0 ? rawBase : 10;
     heading.style.fontSize = `${baseVw}vw`;
+
+    // When CSS stacks word-wraps into block lines (e.g. mobile footer), each line is its
+    // own row, so scale each word-wrap independently to fill the line (no trailing gap).
+    const wordWraps = heading.querySelectorAll('.headline-reveal__word-wrap');
+    const stacked = wordWraps.length > 0 && getComputedStyle(wordWraps[0]).display === 'block';
+
+    if (stacked) {
+      // Measure the word span (still inline-block, so it shrink-wraps to its text) rather
+      // than the wrap itself (block, so it always reports the full line width).
+      wordWraps.forEach((wrap) => {
+        const word = wrap.querySelector('.headline-reveal__word');
+        if (!word) return;
+        wrap.style.fontSize = '';
+        const scrollWidth = word.scrollWidth;
+        if (scrollWidth > 0) {
+          const scale = (innerWidth * 0.98) / scrollWidth; // 98% so text stays clear of edges
+          wrap.style.fontSize = `${baseVw * scale}vw`;
+        }
+      });
+      return;
+    }
+
     const scrollWidth = heading.scrollWidth;
     if (scrollWidth > 0) {
       const scale = (innerWidth * 0.98) / scrollWidth; // 98% so text stays clear of edges

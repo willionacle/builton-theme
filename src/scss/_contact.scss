@@ -107,6 +107,7 @@
 }
 
 .builton-contact-title__word {
+  font-family: $font-sans;
   display: inline-block;
   transform: translateY(100%);
   opacity: 0;
@@ -126,7 +127,7 @@
 
 .builton-contact-subheader__heading {
   margin: 0;
-  font-family: var(--tandem-contact-font-serif);
+  font-family: $font-serif;
   font-size: 3rem;
   font-weight: 500;
   letter-spacing: -0.03em;
@@ -139,6 +140,7 @@
   padding: 0 1rem;
   font-size: 1rem;
   font-weight: 300;
+  font-family: $font-sans;
 }
 
 @media screen and (max-width: 991px) {
@@ -373,7 +375,7 @@
   border-radius: 0 !important;
   text-align: left !important;
   text-transform: uppercase !important;
-  font-family: var(--tandem-contact-font-sans) !important;
+  font-family: $font-sans !important;
   font-size: 6.5vw !important;
   font-weight: 800 !important;
   line-height: 1.4 !important;
@@ -429,7 +431,7 @@
   margin: 0 auto;
   padding: 0 1rem;
   text-align: center;
-  font-family: var(--tandem-contact-font-serif);
+  font-family: $font-serif;
   font-size: 3rem;
   font-weight: 500;
   letter-spacing: -0.03em;
@@ -447,7 +449,7 @@
 
 .builton-contact-offices__heading {
   margin: 0;
-  font-family: var(--tandem-contact-font-sans);
+  font-family: $font-sans;
   font-size: 1rem;
   font-weight: 700;
 }
@@ -488,6 +490,7 @@
   flex-flow: row;
   gap: 0.35rem;
   font-size: 0.7rem;
+  font-family: $font-sans;
 }
 
 .builton-contact-offices__area {
@@ -503,6 +506,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   gap: 4rem;
+  font-family: $font-sans;
 }
 
 .builton-contact-offices__street {

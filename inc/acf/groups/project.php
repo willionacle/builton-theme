@@ -197,6 +197,20 @@ function builton_project_page_project_fields() {
 			'instructions'  => __( 'Shown large and centered under the hero image. Also used as this row’s label in the editor.', 'builton' ),
 		],
 		[
+			'key'          => 'field_project_item_nav_label',
+			'label'        => 'Short label (Projects page sub-nav)',
+			'name'         => 'nav_label',
+			'type'         => 'text',
+			'instructions' => __( 'Optional shorter name shown in the Projects page sub-navigation (e.g. "Grand Hyatt" instead of "Grand Hyatt Residences"). Leave blank to reuse the Project title above.', 'builton' ),
+		],
+		[
+			'key'          => 'field_project_item_footer_label',
+			'label'        => 'Short label (footer Portfolio list)',
+			'name'         => 'footer_label',
+			'type'         => 'text',
+			'instructions' => __( 'Optional shorter name shown in the footer "Portfolio" list. Leave blank to reuse the Project title above.', 'builton' ),
+		],
+		[
 			'key'           => 'field_project_item_subtitle',
 			'label'         => 'Subtitle',
 			'name'          => 'subtitle',

@@ -225,7 +225,7 @@ a {
   }
 }
 
-// Projects page only: second header row listing each project, scroll-spy underline on the active one
+// Projects page only: second header row listing each project as a pill-shaped tab bar, with the active one filled in via scroll-spy
 .site-header__subnav {
   width: 100%;
   margin-top: $spacing * 0.5;
@@ -237,42 +237,36 @@ a {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: $spacing;
+  gap: 0.25rem;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0 auto;
+  padding: 0.3rem;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid rgba($color-text, 0.35);
+  border-radius: 999px;
+  background-color: rgba($color-bg, 0.9);
 }
 
 .site-header__subnav-link {
-  position: relative;
   display: inline-block;
   text-decoration: none;
   font-size: $text-sm;
   font-weight: 500;
   white-space: nowrap;
   color: inherit;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -0.3em;
-    width: 0;
-    height: 2px;
-    background-color: currentColor;
-    transition: width 0.25s ease;
-  }
-
-  &:hover::after {
-    width: 100%;
+  &:hover {
+    background-color: rgba($color-text, 0.08);
   }
 
   &.is-active {
-    font-weight: 700;
-
-    &::after {
-      width: 100%;
-    }
+    background-color: $color-text;
+    color: $color-bg;
+    font-weight: 600;
   }
 }
 
@@ -300,20 +294,19 @@ a {
   will-change: transform, opacity;
 }
 
-// Full-screen mobile menu overlay
+// Full-screen mobile menu overlay (sibling of <header>, see header.twig)
 .site-header__overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 99;
+  z-index: 200;
   background-color: $color-bg;
   visibility: hidden;
   pointer-events: none;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   padding: $spacing;
 
   &.is-open {
@@ -322,9 +315,47 @@ a {
   }
 }
 
+.site-header__overlay-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.site-header__overlay-close {
+  position: relative;
+  display: block;
+  width: 2.5rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.site-header__overlay-close-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.5rem;
+  height: 2px;
+  background-color: $color-text;
+
+  &--1 {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &--2 {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
 .site-header__overlay-inner {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   width: 100%;
-  max-width: 20rem;
+  padding-top: 2rem;
 }
 
 .site-header__overlay-menu {
@@ -333,14 +364,15 @@ a {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  text-align: center;
+  gap: 1.25rem;
+  text-align: left;
+  width: 100%;
 
   a {
     position: relative;
     display: inline-block;
     text-decoration: none;
-    font-size: $text-xl;
+    font-size: $text-2xl;
     font-weight: 500;
 
     &::after {
@@ -368,6 +400,22 @@ a {
   }
 }
 
+.site-header__overlay-submenu {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  a {
+    text-decoration: none;
+    font-size: $text-base;
+    font-weight: 500;
+    color: $color-text-muted;
+  }
+}
+
 @media (max-width: $breakpoint-tablet - 1) {
   .tandem-hub__graphic {
     padding: 54px 0;
@@ -392,16 +440,21 @@ a {
   }
 
   // Projects page sub-nav: becomes a horizontally swipeable strip (main nav is a hamburger
-  // overlay here, so the sub-nav cannot rely on flex-wrap like the desktop layout)
+  // overlay here, so the sub-nav cannot rely on flex-wrap like the desktop layout); the pill
+  // box spans full width here instead of shrink-to-fit so the scrollable area is large enough
   .site-header__subnav-list {
     flex-wrap: nowrap;
     justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 1rem;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    gap: $spacing * 0.75;
+    gap: 0.25rem;
 
     &::-webkit-scrollbar {
       display: none;
@@ -456,6 +509,19 @@ a {
 
 .site-footer__headline .headline-reveal {
   padding: 0.5rem 0 0rem;
+}
+
+// Mobile: stack DESIGN / BUILD / DELIVER into 3 left-aligned lines instead of one shrunk line
+@media (max-width: $breakpoint-tablet - 1) {
+  .site-footer__headline .headline-reveal__heading {
+    white-space: normal;
+    text-align: left;
+  }
+
+  .site-footer__headline .headline-reveal__word-wrap {
+    display: block;
+    height: 1em; // tighter than the shared 1.15em now that each line is sized independently
+  }
 }
 
 .site-footer__inner {

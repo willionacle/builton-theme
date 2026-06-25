@@ -204,13 +204,17 @@ function builton_title_case_preserving_acronyms( $text, array $acronyms = [ 'BGC
  * Resolve rows of the Project page's "projects" repeater into {title, href}
  * pairs, deep-linking to each project's existing `project-N-title` heading
  * anchor (see views/page-project.twig). Shared by two call sites: the
- * footer "Portfolio" column (capped to 5 for column space) and the Projects
- * page header sub-nav (effectively uncapped).
+ * footer "Portfolio" column (capped to 5 for column space, $label_field
+ * 'footer_label') and the Projects page header sub-nav (effectively
+ * uncapped, $label_field 'nav_label') — each has its own short-label field
+ * so the two can be edited independently; both fall back to `project_title`
+ * when their row's label field is blank.
  *
- * @param int $limit Max number of rows to return. Default 5 (footer behavior).
+ * @param int    $limit       Max number of rows to return. Default 5 (footer behavior).
+ * @param string $label_field Row sub-field to use as the short label. Default 'nav_label'.
  * @return array<int, array<string, string>>
  */
-function builton_footer_portfolio_context( $limit = 5 ) {
+function builton_footer_portfolio_context( $limit = 5, $label_field = 'nav_label' ) {
 	$page = get_page_by_path( 'projects' );
 	if ( ! $page || ! function_exists( 'get_field' ) ) {
 		return [];
@@ -221,7 +225,8 @@ function builton_footer_portfolio_context( $limit = 5 ) {
 	$items     = [];
 
 	foreach ( array_slice( $rows, 0, $limit ) as $i => $row ) {
-		$title = is_array( $row ) ? (string) ( $row['project_title'] ?? '' ) : '';
+		$label = is_array( $row ) ? trim( (string) ( $row[ $label_field ] ?? '' ) ) : '';
+		$title = '' !== $label ? $label : ( is_array( $row ) ? (string) ( $row['project_title'] ?? '' ) : '' );
 		$items[] = [
 			'title' => builton_title_case_preserving_acronyms( $title ),
 			'href'  => $href_base . '#project-' . ( $i + 1 ) . '-title',

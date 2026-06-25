@@ -102,6 +102,13 @@ $wwd-property-panel-bg: #e8e8ea;
   padding: clamp(2.5rem, 6vw, 4.5rem) $spacing clamp(3rem, 7vw, 5rem);
 }
 
+@media (max-width: $breakpoint-tablet) {
+  .section-property-development__panel {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 .section-property-development--transparent .section-property-development__panel {
   background: transparent;
 }

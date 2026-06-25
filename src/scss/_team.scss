@@ -56,7 +56,7 @@
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--tandem-team-ink);
-  font-family: var(--tandem-team-font-sans);
+  font-family: $font-sans;
   font-size: 13.2vw;
   font-weight: 800;
   line-height: 0.9;
@@ -224,7 +224,7 @@
 
 .builton-team-card__name {
   margin: 0;
-  font-family: var(--tandem-team-font-serif);
+  font-family: $font-serif;
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -283,6 +283,7 @@
   color: var(--tandem-team-muted);
   font-size: 1rem;
   font-weight: 300;
+  font-family: $font-sans;
 }
 
 /* New field, not part of the original site — a department/team tag
@@ -292,6 +293,7 @@
   color: var(--tandem-team-muted);
   font-size: 0.875rem;
   font-weight: 300;
+  font-family: $font-sans;
 }
 
 .builton-team-card__badge {
@@ -398,6 +400,7 @@
 .builton-team-card__bio {
   height: 0;
   overflow: hidden;
+  font-family: $font-sans;
 }
 
 .builton-team-card__bio p {
@@ -406,6 +409,7 @@
   font-weight: 300;
   opacity: 0;
   transition: opacity 1.6s var(--tandem-team-ease);
+  font-family: $font-sans;
 }
 
 .builton-team-card.is-open .builton-team-card__bio p {
@@ -456,6 +460,7 @@
   grid-column: span 2;
   justify-self: center;
   max-width: 28rem;
+  font-family: $font-sans;
 }
 
 .builton-team-intro p {

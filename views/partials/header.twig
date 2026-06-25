@@ -44,23 +44,50 @@
       </ul>
     </nav>
   {% endif %}
-  <div class="site-header__overlay" id="site-header__overlay" aria-hidden="true">
-    <div class="site-header__overlay-inner">
-      {% if function('has_nav_menu', 'primary') %}
-        {{ function('wp_nav_menu', {
-          'theme_location': 'primary',
-          'menu_class': 'site-header__overlay-menu',
-          'container': false,
-          'echo': false
-        }) }}
-      {% else %}
-        <ul class="site-header__overlay-menu">
-          <li><a href="{{ site.url }}/what-we-do/" aria-current="{{ function('is_page', 'what-we-do') ? 'page' : '' }}">What we do</a></li>
-          <li><a href="{{ site.url }}/projects/" aria-current="{{ function('is_page', 'projects') ? 'page' : '' }}">Projects</a></li>
-          <li><a href="{{ site.url }}/team/" aria-current="{{ function('is_page', 'team') ? 'page' : '' }}">Team</a></li>
-          <li><a href="{{ site.url }}/contact/" aria-current="{{ function('is_page', 'contact') ? 'page' : '' }}">Contact</a></li>
-        </ul>
-      {% endif %}
-    </div>
-  </div>
 </header>
+{# Rendered as a sibling of <header>, not nested inside it: the header can pick up
+   backdrop-filter (.site-header--scrolled), which would otherwise become the containing
+   block for this fixed-position overlay and clip it to the header's own height. #}
+<div class="site-header__overlay" id="site-header__overlay" aria-hidden="true">
+  <div class="site-header__overlay-top">
+    {% if function('has_custom_logo') %}
+      <div class="site-header__logo site-header__logo--custom">
+        {{ function('get_custom_logo')|raw }}
+      </div>
+    {% else %}
+      <a href="{{ site.url }}" class="site-header__logo site-header__logo--text" rel="home">
+        <span class="site-header__logo-text">{{ site.name }}</span>
+      </a>
+    {% endif %}
+    <button type="button" class="site-header__overlay-close" aria-label="{{ __( 'Close menu', 'builton' ) }}">
+      <span class="site-header__overlay-close-line site-header__overlay-close-line--1"></span>
+      <span class="site-header__overlay-close-line site-header__overlay-close-line--2"></span>
+    </button>
+  </div>
+  <div class="site-header__overlay-inner">
+    {% if function('has_nav_menu', 'primary') %}
+      {{ function('wp_nav_menu', {
+        'theme_location': 'primary',
+        'menu_class': 'site-header__overlay-menu',
+        'container': false,
+        'echo': false
+      }) }}
+    {% else %}
+      <ul class="site-header__overlay-menu">
+        <li><a href="{{ site.url }}/what-we-do/" aria-current="{{ function('is_page', 'what-we-do') ? 'page' : '' }}">What we do</a></li>
+        <li>
+          <a href="{{ site.url }}/projects/" aria-current="{{ function('is_page', 'projects') ? 'page' : '' }}">Projects</a>
+          {% if project_nav_items|default([])|length > 0 %}
+            <ul class="site-header__overlay-submenu">
+              {% for item in project_nav_items %}
+                <li><a href="{{ item.href }}">{{ item.title }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+        <li><a href="{{ site.url }}/team/" aria-current="{{ function('is_page', 'team') ? 'page' : '' }}">Team</a></li>
+        <li><a href="{{ site.url }}/contact/" aria-current="{{ function('is_page', 'contact') ? 'page' : '' }}">Contact</a></li>
+      </ul>
+    {% endif %}
+  </div>
+</div>
