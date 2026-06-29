@@ -12,9 +12,48 @@
     </div>
   </div>
 
-  <!-- ============ WPForms Integration ============ -->
-  <div class="builton-contact-form-wrapper">
-    {{ form_shortcode | shortcode }}
+  <!-- ============ Contact form (Web3Forms) ============ -->
+  <div class="builton-contact-form-section">
+    <form id="builton-contact-form" class="builton-contact-form" data-endpoint="https://api.web3forms.com/submit">
+      <input type="hidden" name="access_key" value="{{ web3forms_access_key }}">
+      <input type="hidden" name="subject" value="New contact form submission — Builton">
+      <input type="checkbox" name="botcheck" style="display: none;" tabindex="-1" autocomplete="off">
+
+      <div class="builton-contact-form__bottom">
+        <label class="builton-contact-form__heading" for="builton-contact-message">Your message</label>
+        <textarea class="builton-contact-form__textarea" id="builton-contact-message" name="message" placeholder="Hello Builton...." required></textarea>
+      </div>
+
+      <fieldset class="builton-contact-form__top">
+        <legend class="builton-contact-form__heading">Your details</legend>
+
+        <label class="builton-contact-form__label" for="builton-contact-name">Name</label>
+        <input class="builton-contact-form__field" type="text" id="builton-contact-name" name="name" required>
+
+        <label class="builton-contact-form__label" for="builton-contact-email">Email</label>
+        <input class="builton-contact-form__field" type="email" id="builton-contact-email" name="email" required>
+
+        <label class="builton-contact-form__label" for="builton-contact-phone">Phone</label>
+        <input class="builton-contact-form__field" type="tel" id="builton-contact-phone" name="phone">
+
+        <button type="submit" class="builton-contact-form__submit" aria-label="Send message">
+          <span class="builton-contact-form__submit-icon" data-contact-arrow>
+            <svg class="builton-contact-form__submit-icon-svg" width="18" height="18" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3 7h6.5M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+      </fieldset>
+    </form>
+
+    <div class="builton-contact-form__success" hidden>
+      <h2 class="builton-contact-form__success-title">Message sent</h2>
+      <p class="builton-contact-form__success-text">Thanks for reaching out — we'll get back to you shortly.</p>
+    </div>
+
+    <div class="builton-contact-form__error" hidden>
+      <p>Something went wrong sending your message. Please try again or email us directly.</p>
+    </div>
   </div>
 
   <!-- ============ Quick contact info ============ -->

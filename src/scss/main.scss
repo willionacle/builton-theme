@@ -871,7 +871,6 @@ textarea.footer-grid__input,
 @import 'fonts';
 @import 'global';
 @import 'contact';
-@import 'contact-form';
 @import 'team';
 
 // Front page
@@ -1889,10 +1888,6 @@ $tandem-hub-circle-clearance: 1.75rem;
   pointer-events: none;
   // Bottom edge stops above circle top + clearance (341 - 107.5) / 676 of graphic height
   // max-height: calc(100% * (341 - 107.5) / 676 - #{$tandem-hub-circle-clearance});
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-width: thin;
 
   .tandem-hub__heading,
   .tandem-hub__lead {
@@ -1918,10 +1913,6 @@ $tandem-hub-circle-clearance: 1.75rem;
   color: $color-text-muted;
   pointer-events: none;
   box-sizing: border-box;
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-width: thin;
   text-shadow:
     0 0 1px $tandem-hub-bg,
     0 0 12px $tandem-hub-bg,
@@ -2127,27 +2118,63 @@ $tandem-hub-circle-clearance: 1.75rem;
 
 .explore-dual__list-item {
   padding: 0.2rem 0;
+  transition: color 0.25s ease;
+}
+
+// Hovering a label (see main.js [data-explore-list-item]) bolds + darkens it
+// to match its expanding thumb; siblings stay at the list's resting muted color.
+.explore-dual__list-item.is-active {
+  color: $color-text;
+  font-weight: 600;
 }
 
 .explore-dual__thumbs {
   display: flex;
   gap: 0.5rem;
   margin-top: auto;
+  // Fixed aspect-ratio lives on the row, not the individual thumbs, so that
+  // hover-expanding one thumb's flex-grow changes only its width -- the row
+  // (and therefore every thumb's height, via height: 100% below) stays put.
+  // 9/4 reproduces the original per-thumb 3/4 ratio at the resting equal-thirds width.
+  aspect-ratio: 9 / 4;
 }
 
 .explore-dual__thumb {
   flex: 1 1 0;
   max-width: 33.33%;
+  height: 100%;
   border-radius: 0.35rem;
   overflow: hidden;
   line-height: 0;
-  aspect-ratio: 3 / 4;
+  transition: flex-grow 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+}
+
+// Capability label hover (see main.js [data-explore-list-item]): paired thumb
+// grows, the rest shrink/dim — max-width is dropped so the active one can
+// actually exceed the resting third. .is-active is nested so it outranks the
+// plain dimming rule's specificity (both target .explore-dual__thumb under
+// .has-active, so source order alone wouldn't be enough).
+.explore-dual__thumbs.has-active .explore-dual__thumb {
+  flex-grow: 0.6;
+  opacity: 0.75;
+
+  &.is-active {
+    flex-grow: 2.2;
+    max-width: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explore-dual__thumb {
+    transition: none;
   }
 }
 

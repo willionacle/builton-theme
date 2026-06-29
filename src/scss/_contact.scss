@@ -183,9 +183,10 @@
   width: 100%;
   max-width: 32rem;
   margin: 0 auto;
-  padding: 0.7rem 0.75rem 0.75rem;
+  padding: 1.75rem;
   background-color: var(--tandem-contact-ink);
-  border-radius: 0.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 1.5rem 3rem rgba(30, 30, 28, 0.12);
 }
 
 .builton-contact-form__top,
@@ -197,18 +198,39 @@
 
 .builton-contact-form__top {
   gap: 1rem;
+  /* Reset <fieldset>'s default border/padding/min-width so it behaves like
+     the plain flex container .bottom already is. */
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
 }
 
 .builton-contact-form__bottom {
   gap: 0.5rem;
 }
 
-.builton-contact-form__label {
-  color: var(--tandem-contact-sage);
-  font-size: 0.875rem;
+.builton-contact-form__heading {
+  margin: 0;
+  padding: 0;
+  color: var(--tandem-contact-cream);
+  font-family: var(--tandem-contact-font-sans);
+  font-size: 1rem;
+  font-weight: 700;
 }
 
-.builton-contact-form__textarea {
+.builton-contact-form__label {
+  color: var(--tandem-contact-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Selectors below are qualified with the element type (input/textarea) to
+   out-specificity ".builton-contact-wrapper input/textarea"'s color/border
+   reset above — a single class alone (0,1,0) loses to that compound
+   selector (0,1,1), which left typed text the same color as the card
+   background. */
+textarea.builton-contact-form__textarea {
   min-height: 15rem;
   resize: none;
   color: var(--tandem-contact-cream);
@@ -221,7 +243,7 @@
   color: var(--tandem-contact-muted);
 }
 
-.builton-contact-form__field {
+input.builton-contact-form__field {
   width: 100%;
   padding: 0.5rem 0;
   color: var(--tandem-contact-cream);
@@ -230,7 +252,7 @@
   transition: border-color 0.35s var(--tandem-contact-ease);
 }
 
-.builton-contact-form__field:focus {
+input.builton-contact-form__field:focus {
   border-bottom-color: #fff;
 }
 
@@ -246,50 +268,33 @@
   aspect-ratio: 1;
   height: 4rem;
   margin-left: auto;
-  background-color: rgba(247, 247, 240, 0.2);
+  background-color: rgba(247, 247, 240, 0.35) !important;
   border-radius: 999rem;
-  transition: background-color 0.35s var(--tandem-contact-ease);
+  // transition: background-color 0.35s var(--tandem-contact-ease);
 }
 
 .builton-contact-form__submit:hover {
   background-color: rgba(247, 247, 240, 0.35);
 }
 
-/* Same CSS-drawn arrow technique used in the contact-form skin: a short
-   line plus a 45deg-rotated corner, both via pseudo-elements, instead of an
-   inline <svg>. */
+/* Same arrow icon + hover-loop motion as .explore-dual__arrow-motion /
+   [data-footer-arrow-motion] (see main.scss / contact.js): an inner span
+   GSAP slides right and fades, resets from the left, loops while hovered. */
 .builton-contact-form__submit-icon {
-  position: relative;
-  display: block;
-  width: 1.5rem;
-  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   color: var(--tandem-contact-cream);
+  will-change: transform;
 }
 
-.builton-contact-form__submit-icon::before,
-.builton-contact-form__submit-icon::after {
-  content: '';
-  position: absolute;
-  background-color: currentColor;
-}
-
-.builton-contact-form__submit-icon::before {
-  left: 0.1rem;
-  top: 50%;
-  width: 1.1rem;
-  height: 2px;
-  transform: translateY(-50%);
-}
-
-.builton-contact-form__submit-icon::after {
-  right: 0.15rem;
-  top: 50%;
-  width: 0.5rem;
-  height: 0.5rem;
-  background-color: transparent;
-  border-top: 2px solid currentColor;
-  border-right: 2px solid currentColor;
-  transform: translateY(-50%) rotate(45deg);
+.builton-contact-form__submit-icon-svg {
+  display: block;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
 }
 
 .builton-contact-form__success,

@@ -45,12 +45,12 @@
             "new_lines": ""
         },
         {
-            "key": "field_6a3918ab6cc31",
-            "label": "Contact Form Shortcode",
-            "name": "form_shortcode",
+            "key": "field_6a3a2a1b6cc41",
+            "label": "Web3Forms Access Key",
+            "name": "web3forms_access_key",
             "aria-label": "",
             "type": "text",
-            "instructions": "",
+            "instructions": "Access key from web3forms.com, configured with inquiry@builton.ph as the destination inbox.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {

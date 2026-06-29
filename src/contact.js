@@ -66,15 +66,11 @@ jQuery(document).ready(function ($) {
      Contact form — client-side validation + submit.
 
      SUBMIT_ENDPOINT comes from the form's data-endpoint attribute in
-     contact.html. Point it at your WP handler:
-       - an admin-ajax.php action (add_action('wp_ajax_...')/
-         'wp_ajax_nopriv_...') with action=<name> in the posted data, or
-       - a custom REST route, or
-       - a form plugin's own submission endpoint.
-     Left empty, the form is still fully validated and interactive, but
-     skips the network call and shows the success state directly — useful
-     for previewing the page before the backend is wired up. Once an
-     endpoint is set this falls through to a real $.ajax POST.
+     page-contact.twig, pointed at Web3Forms (https://api.web3forms.com/submit).
+     The form's access_key/subject/botcheck hidden inputs ride along via
+     $form.serialize(). Left empty, the form is still fully validated and
+     interactive, but skips the network call and shows the success state
+     directly — useful for previewing the page before an access key is set.
   --------------------------------------------------------------- */
   var $form = $root.find("#builton-contact-form");
   var $success = $root.find(".builton-contact-form__success");
@@ -114,6 +110,41 @@ jQuery(document).ready(function ($) {
       data: $form.serialize(),
     }).then(onSuccess, onFail);
   });
+
+  /* ---------------------------------------------------------------
+     Submit button arrow — same hover loop as .explore-dual__arrow-motion
+     and the footer arrow links (see main.js): the icon slides right and
+     fades, resets from the left, and repeats while hovered.
+  --------------------------------------------------------------- */
+  var submitBtn = $form.find(".builton-contact-form__submit")[0];
+  var submitArrow = $form.find("[data-contact-arrow]")[0];
+  var submitFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var submitReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (submitBtn && submitArrow && submitFinePointer && !submitReduceMotion && window.gsap) {
+    var submitArrowTl = null;
+
+    var resetSubmitArrow = function () {
+      if (submitArrowTl) {
+        submitArrowTl.kill();
+        submitArrowTl = null;
+      }
+      window.gsap.set(submitArrow, { x: 0, opacity: 1, clearProps: "transform" });
+    };
+
+    var runSubmitArrowLoop = function () {
+      resetSubmitArrow();
+      window.gsap.set(submitArrow, { x: 0, opacity: 1 });
+      submitArrowTl = window.gsap.timeline({ repeat: -1, repeatDelay: 0.65 });
+      submitArrowTl
+        .to(submitArrow, { x: 14, duration: 0.3, ease: "power2.in" })
+        .set(submitArrow, { x: -14, opacity: 0 })
+        .to(submitArrow, { x: 0, opacity: 1, duration: 0.34, ease: "power2.out" });
+    };
+
+    submitBtn.addEventListener("pointerenter", runSubmitArrowLoop);
+    submitBtn.addEventListener("pointerleave", resetSubmitArrow);
+  }
 
   /* ---------------------------------------------------------------
      Title entrance — masks the "Contact" heading in once it scrolls
