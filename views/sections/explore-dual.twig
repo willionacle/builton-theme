@@ -35,17 +35,17 @@
       </div>
       <div class="explore-dual__body explore-dual__body--light">
         {% if light_card.lines|default([])|length > 0 %}
-          <ul class="explore-dual__list">
+          <ul class="explore-dual__list" data-explore-list>
             {% for line in light_card.lines %}
-              <li class="explore-dual__list-item">{{ line }}</li>
+              <li class="explore-dual__list-item" data-explore-list-item data-explore-index="{{ loop.index0 }}">{{ line }}</li>
             {% endfor %}
           </ul>
         {% endif %}
         {% set thumbs = light_card.thumbs|default([]) %}
         {% if thumbs|length > 0 %}
-          <div class="explore-dual__thumbs">
+          <div class="explore-dual__thumbs" data-explore-thumbs>
             {% for t in thumbs %}
-              <span class="explore-dual__thumb">
+              <span class="explore-dual__thumb" data-explore-thumb data-explore-index="{{ loop.index0 }}">
                 <img src="{{ t.src }}" alt="{{ t.alt|default('') }}" loading="lazy" width="120" height="160">
               </span>
             {% endfor %}

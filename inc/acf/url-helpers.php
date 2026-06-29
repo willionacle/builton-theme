@@ -237,6 +237,31 @@ function builton_footer_portfolio_context( $limit = 5, $label_field = 'nav_label
 }
 
 /**
+ * Cap the Projects page header sub-nav to $limit items, appending a "See
+ * More" link to the next project's anchor when there are more than that
+ * many. Reuses builton_footer_portfolio_context()'s already-correct href
+ * for that next item rather than recomputing the anchor string, so this
+ * can't drift if that function's href scheme ever changes.
+ *
+ * @param int $limit Max number of project links to show before "See More".
+ * @return array<int, array<string, string>>
+ */
+function builton_project_subnav_context( $limit = 5 ) {
+	$items = builton_footer_portfolio_context( 99, 'nav_label' );
+	if ( count( $items ) <= $limit ) {
+		return $items;
+	}
+
+	$visible   = array_slice( $items, 0, $limit );
+	$visible[] = [
+		'title' => __( 'See More', 'builton' ),
+		'href'  => $items[ $limit ]['href'],
+	];
+
+	return $visible;
+}
+
+/**
  * Map an ACF image field value to a small shape for Twig templates.
  *
  * Accepts image arrays, attachment IDs, or URL strings.

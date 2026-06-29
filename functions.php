@@ -181,7 +181,7 @@ function register_team_members_cpt() {
  */
 function builton_add_footer_context( $context ) {
 	$context['footer_projects']   = builton_footer_portfolio_context( 5, 'footer_label' );
-	$context['project_nav_items'] = builton_footer_portfolio_context( 99, 'nav_label' );
+	$context['project_nav_items'] = builton_project_subnav_context( 5 );
 	return $context;
 }
 add_filter( 'timber/context', 'builton_add_footer_context' );

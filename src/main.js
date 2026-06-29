@@ -6,7 +6,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import './contact.js';
-import './contact-form.js';
 import './team.js';
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -852,6 +851,46 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('pointerenter', runArrowLoop);
     card.addEventListener('pointerleave', resetArrow);
   });
+
+  // Explore capabilities list: hovering a label expands its index-paired thumb
+  // (CSS flex-grow transition handles the motion, see main.scss .explore-dual__thumb).
+  // Pointer-only (gated by exploreFinePointer/exploreReduceMotion above) since the list
+  // items are plain text, not focusable controls -- making each one a tab stop inside
+  // the card's single <a> would add keyboard stops with no matching activation behavior.
+  if (exploreFinePointer && !exploreReduceMotion) {
+    document.querySelectorAll('[data-explore-list]').forEach((list) => {
+      const card = list.closest('[data-explore-dual-card]');
+      const thumbsWrap = card?.querySelector('[data-explore-thumbs]');
+      if (!thumbsWrap) return;
+      const items = list.querySelectorAll('[data-explore-list-item]');
+      const thumbs = thumbsWrap.querySelectorAll('[data-explore-thumb]');
+      if (!items.length || !thumbs.length) return;
+
+      const clearActive = () => {
+        list.classList.remove('has-active');
+        thumbsWrap.classList.remove('has-active');
+        items.forEach((it) => it.classList.remove('is-active'));
+        thumbs.forEach((thumb) => thumb.classList.remove('is-active'));
+      };
+
+      items.forEach((item) => {
+        const index = Number(item.dataset.exploreIndex);
+        const thumb = thumbsWrap.querySelector(`[data-explore-thumb][data-explore-index="${index}"]`);
+        if (!thumb) return; // lines/thumbs count mismatch -- this label has no image to pair with
+        item.addEventListener('pointerenter', () => {
+          list.classList.add('has-active');
+          thumbsWrap.classList.add('has-active');
+          items.forEach((it) => it.classList.toggle('is-active', it === item));
+          thumbs.forEach((t) => t.classList.toggle('is-active', t === thumb));
+        });
+      });
+
+      list.addEventListener('pointerleave', (e) => {
+        if (!list.contains(e.relatedTarget)) clearActive();
+      });
+      card.addEventListener('pointerleave', clearActive);
+    });
+  }
 
   // Leadership card: translate faces on hover + class for dim/back reveal (CSS scales imgs)
   document.querySelectorAll('[data-explore-leadership-card]').forEach((card) => {
